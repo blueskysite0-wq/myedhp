@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="学校現場で即座に役立つ生成AI・ICT活用ガイド。先生のための実践的ポータルサイト。">
+  <title>先生のためのポータルサイト | 教育DX・生成AI活用ナレッジベース</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- PDF.js for Client-Side Auto Thumbnail Generation (Mozilla Open Source) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       CSS Variables & Reset
+       ========================================================================== */
+    :root {
+      --primary: #1E3A8A;           /* 信頼感のあるディープネイビー */
+      --primary-light: #3B82F6;     /* 鮮やかなブルー */
+      --primary-soft: #EFF6FF;      /* 背景用ソフトブルー */
+      --accent: #EA580C;            /* 朝の温かみを感じるオレンジ */
+      --accent-soft: #FFF7ED;
+      --teal: #0D9488;              /* 知的なティール・エメラルド */
+      --teal-soft: #F0FDFA;
+      --amber: #F59E0B;             /* 注目・注意を引くアンバー */
+      --amber-soft: #FEF3C7;
+      --surface: #FFFFFF;
+      --background: #F8FAFC;        /* 目に優しいスレート系オフホワイト */
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-subtle: #94A3B8;
+      --border: #E2E8F0;
+      --border-focus: #93C5FD;
+      --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 12px 20px -3px rgba(15, 23, 42, 0.09), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+      --shadow-hover: 0 20px 25px -5px rgba(30, 58, 138, 0.12), 0 8px 10px -6px rgba(30, 58, 138, 0.06);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      background-color: var(--background);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ==========================================================================
+       Header & Hero Section
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(30, 58, 138, 0.25);
+    }
+
+    .brand-text h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link {
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background-color: var(--primary-soft);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      background-color: var(--primary-soft);
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      position: relative;
+      background: linear-gradient(135deg, #0F2942 0%, #1E3A8A 60%, #1E40AF 100%);
+      color: #FFFFFF;
+      padding: 48px 0 52px;
+      overflow: hidden;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 100px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #93C5FD;
+      margin-bottom: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-badge .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #34D399;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #E2E8F0;
+      margin-bottom: 24px;
+    }
+
+    .hero-quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-nav-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 100px;
+      color: #FFFFFF;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-nav-chip:hover {
+      background: #FFFFFF;
+      color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ==========================================================================
+       News & Ticker Bar
+       ========================================================================== */
+    .news-ticker-bar {
+      background: linear-gradient(90deg, #1E40AF 0%, #2563EB 100%);
+      color: #FFFFFF;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .news-ticker-inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ticker-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #EF4444;
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ticker-text {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ticker-link {
+      color: #FDE047;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      margin-left: 8px;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       Featured Section: 朝の会のお話 (Daily Story - Auto Synced)
+       ========================================================================== */
+    .section-daily-story {
+      padding: 40px 0;
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .story-card {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .story-card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .story-poster-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .poster-frame {
+      width: 100%;
+      background: #FFF;
+      border: 2px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .poster-frame:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
+    }
+
+    .poster-caption {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .story-content-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .story-meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 6px 12px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+
+    .story-title {
+      font-size: 1.625rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .story-gem-callout {
+      background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+      border-left: 4px solid #16A34A;
+      padding: 12px 16px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: 20px;
+      font-size: 0.875rem;
+      color: #166534;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .story-body {
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      background: var(--background);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .story-body::before {
+      content: '“';
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      font-size: 3rem;
+      font-family: Georgia, serif;
+      color: var(--primary-light);
+      opacity: 0.25;
+      line-height: 1;
+    }
+
+    .story-actions {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: #1E40AF;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    /* ==========================================================================
+       Main Section: 3分で読める生成AIテキスト (Grid Section)
+       ========================================================================== */
+    .section-materials {
+      padding: 56px 0 80px;
+    }
+
+    .section-header-band {
+      background: linear-gradient(135deg, #0F2942 0%, #1E3A8A 100%);
+      border-radius: var(--radius-lg);
+      padding: 28px 36px;
+      color: #FFFFFF;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .section-header-text h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .section-header-text p {
+      font-size: 0.9375rem;
+      color: #CBD5E1;
+      font-weight: 400;
+    }
+
+    .materials-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .filter-search-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Category Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+    }
+
+    .filter-btn .count-badge {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 100px;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .filter-btn.active .count-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+    }
+
+    /* Search Box & Sort */
+    .search-sort-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-box {
+      position: relative;
+      width: 260px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 9px 14px 9px 38px;
+      font-size: 0.875rem;
+      font-family: inherit;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-subtle);
+      pointer-events: none;
+    }
+
+    .sort-select {
+      padding: 9px 14px;
+      font-size: 0.875rem;
+      font-family: inherit;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    /* Materials Grid */
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1200px) {
+      .materials-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .materials-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .materials-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+    }
+
+    /* Material Card */
+    .material-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .material-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: #BFDBFE;
+    }
+
+    .card-thumb-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1.414; /* A4比率 */
+      background: #F1F5F9;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-thumb-img, .pdf-canvas-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .material-card:hover .card-thumb-img,
+    .material-card:hover .pdf-canvas-thumb {
+      transform: scale(1.04);
+    }
+
+    /* Hover Overlay */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%);
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+      transition: var(--transition);
+    }
+
+    .material-card:hover .card-overlay {
+      opacity: 1;
+    }
+
+    .overlay-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 8px 12px;
+      background: #FFFFFF;
+      color: var(--primary);
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-md);
+    }
+
+    .pdf-badge-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(239, 68, 68, 0.95);
+      color: #FFFFFF;
+      font-size: 0.6875rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+    }
+
+    .vol-badge-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(4px);
+      color: #FFFFFF;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      z-index: 2;
+    }
+
+    .card-info {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .card-vol-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary-light);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .card-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.45;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.55em;
+    }
+
+    .card-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid #F1F5F9;
+      font-size: 0.6875rem;
+      color: var(--text-subtle);
+    }
+
+    .category-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--background);
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-container {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      position: relative;
+      transform: scale(0.95);
+      transition: var(--transition);
+    }
+
+    .modal-backdrop.open .modal-container {
+      transform: scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      background: rgba(15, 23, 42, 0.08);
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .modal-body {
+      padding: 32px;
+    }
+
+    /* Scroll To Top */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      border: none;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: var(--transition);
+      z-index: 90;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .story-card {
+        grid-template-columns: 1fr;
+        padding: 24px;
+      }
+      .story-poster-col {
+        max-width: 340px;
+        margin: 0 auto;
+      }
+      .main-nav {
+        display: none;
+      }
+      .hero-title {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="brand">
+          <div class="brand-logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              <line x1="9" y1="7" x2="15" y2="7"/>
+              <line x1="9" y1="11" x2="13" y2="11"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1>先生のためのポータルサイト</h1>
+            <span>教育DX推進・生成AI実践ナレッジ</span>
+          </div>
+        </a>
+
+        <nav class="main-nav">
+          <a href="#materials" class="nav-link active">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            3分で読める生成AIテキスト
+          </a>
+          <a href="#daily-story" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            最新の朝のお話
+          </a>
+          <a href="index2.html" class="nav-link" style="color: #EA580C; font-weight: 700;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            今日のお話ポスター一覧 ↗
+          </a>
+          <a href="#videos" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            豆研修解説動画
+          </a>
+          <a href="#prompts" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            プロンプト集
+          </a>
+          <a href="#apps" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            校務アプリ集
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          校内研修・校務効率化を強力にサポート
+        </div>
+        <h2 class="hero-title">学校現場で明日からすぐ使える、<br>実践的生成AIテキスト＆ICT活用ハブ</h2>
+        <p class="hero-desc">
+          「3分で読めるミニ研修シリーズ」をはじめ、授業や校務の時短・高度化に直結するアイディアとテキストをワンストップでお届けします。すべてのテキストはサムネイルからPDFを閲覧できます。
+        </p>
+        <div class="hero-quick-nav">
+          <a href="#materials" class="hero-nav-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            3分で読める生成AIテキスト一覧
+          </a>
+          <a href="index2.html" class="hero-nav-chip" style="background: rgba(234, 88, 12, 0.35); border-color: #F97316;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            今日のお話ポスター一覧（全20話） ↗
+          </a>
+          <a href="#apps" class="hero-nav-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Canva・NotebookLM・GEM活用
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Ticker -->
+  <div class="news-ticker-bar">
+    <div class="container">
+      <div class="news-ticker-inner">
+        <span class="ticker-label">お知らせ・新着</span>
+        <div class="ticker-text" id="newsTickerText">
+          毎日更新！！今日の「朝の会のお話」！最新版ポスターを公開中！
+          <a href="index2.html" class="ticker-link">全20話ポスターギャラリーを見る ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Daily Story Section (Auto Updated by Browser) -->
+  <section class="section-daily-story" id="daily-story">
+    <div class="container">
+      <div class="story-card">
+        <!-- Poster Column -->
+        <div class="story-poster-col">
+          <div class="poster-frame" id="openPosterModal" title="クリックして拡大表示" style="cursor: pointer; overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-md); border: 2px solid #E2E8F0;">
+            <img id="featuredPosterImg" src="kyounoohanasi/1112small.png" alt="最新のお話ポスター" style="width: 100%; height: auto; display: block; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+          </div>
+          <span class="poster-caption">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            ポスターをクリックで拡大表示
+          </span>
+        </div>
+
+        <!-- Story Content Column -->
+        <div class="story-content-col">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+            <div class="story-meta-badge" id="featuredDateBadge" style="margin-bottom: 0;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="featuredDateText">最新のお話</span>
+            </div>
+            <a href="index2.html" style="font-size: 0.8125rem; font-weight: 700; color: #EA580C; background: #FFF7ED; padding: 4px 12px; border-radius: 100px; border: 1px solid #FDBA74; display: inline-flex; align-items: center; gap: 4px;">
+              <span>全20話ギャラリーを見る ↗</span>
+            </a>
+          </div>
+
+          <h3 class="story-title" id="featuredStoryTitle">ボイジャー1号に学ぶ、<br>未知への挑戦と好奇心</h3>
+
+          <div class="story-gem-callout">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div>
+              <strong>先生からのお話作成用GEM「今日は何の日！！」を活用</strong><br>
+              専用GEMで誰でも30秒で今日のお話を作成できます。（※学校専用アカウント限定アクセス）
+            </div>
+          </div>
+
+          <div class="story-body" id="featuredStoryBody">
+            皆さん、おはようございます！今日11月12日は、1980年にNASAの惑星探査機『ボイジャー1号』が土星に最も近づき、美しい環や未知の衛星の鮮明な写真を地球へ届けてくれた記念すべき日です。<br><br>
+            ボイジャー1号はその後も休むことなく飛び続け、今では太陽系を飛び出して、人類が作ったものとして最も遠い星間空間を航行しています。暗い宇宙の中を進み続けるボイジャーの旅は、私たちに「未知の世界へ踏み出す勇気」と「あきらめずに挑戦し続ける力」を教えてくれます。<br><br>
+            皆さんも今日、初めて習う問題やちょっと苦手なことに出会ったら、「ボイジャーのように一歩前へ！」と心の中で唱えて挑戦してみませんか？自分の可能性を広げる素晴らしい一日にしていきましょう！
+          </div>
+
+          <div class="story-actions" style="flex-wrap: wrap;">
+            <a href="index2.html" class="btn btn-primary" style="background: #EA580C; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              今日のお話ポスター一覧を見る（全20話） ↗
+            </a>
+            <button class="btn btn-outline" id="btnPreviewPoster">
+              ポスターを拡大・印刷
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Materials Section: 3分で読める生成AIテキスト -->
+  <section class="section-materials" id="materials">
+    <div class="container">
+      
+      <!-- Section Header Band -->
+      <div class="section-header-band">
+        <div class="section-header-text">
+          <h2>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            3分で読める生成AIテキスト
+          </h2>
+          <p>サムネイルをクリックすると、高解像度PDFテキストがそのまま開きます（PDF自動サムネイル生成対応）</p>
+        </div>
+        <div class="header-status-badge">
+          <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 100px; font-size: 0.8125rem; font-weight: 700;">
+            ✨ 新規PDF追加時は自動でサムネイル生成
+          </span>
+        </div>
+      </div>
+
+      <!-- Controls: Category Filters & Search -->
+      <div class="materials-controls">
+        <div class="filter-search-row">
+          
+          <!-- Category Filter Tabs -->
+          <div class="filter-tabs" id="filterTabs">
+            <button class="filter-btn active" data-category="all">
+              すべて <span class="count-badge" id="countAll">36</span>
+            </button>
+            <button class="filter-btn" data-category="mame">
+              豆研修シリーズ <span class="count-badge" id="countMame">18</span>
+            </button>
+            <button class="filter-btn" data-category="canva">
+              Canva・デザイン <span class="count-badge" id="countCanva">5</span>
+            </button>
+            <button class="filter-btn" data-category="koumu">
+              校務・自動化 <span class="count-badge" id="countKoumu">4</span>
+            </button>
+            <button class="filter-btn" data-category="prompt">
+              プロンプト・実践 <span class="count-badge" id="countPrompt">3</span>
+            </button>
+            <button class="filter-btn" data-category="basic">
+              基本編 <span class="count-badge" id="countBasic">6</span>
+            </button>
+          </div>
+
+          <!-- Search & Sort -->
+          <div class="search-sort-group">
+            <div class="search-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="searchInput" placeholder="テキスト名やVOLで検索...">
+            </div>
+            <select class="sort-select" id="sortSelect">
+              <option value="newest">新しい順 (VOL降順)</option>
+              <option value="oldest">古い順 (VOL昇順)</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Materials Grid Container -->
+      <div class="materials-grid" id="materialsGrid">
+        <!-- Rendered via JavaScript dynamically with PDF.js support -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Additional Feature Resources Section -->
+  <section class="section-features" id="videos">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrapper" style="background: #EEF2FF; color: #4F46E5; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          </div>
+          <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;">豆研修テキストの解説動画</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">テキストの内容を動画でサクッと視聴。空き時間にスマホからでも視聴できる解説ショートムービー集です。</p>
+          <a href="#materials" style="color: var(--primary); font-weight: 700; font-size: 0.875rem;">動画対応テキストを探す →</a>
+        </div>
+
+        <div class="feature-box" id="prompts">
+          <div class="feature-icon-wrapper" style="background: #ECFDF5; color: #059669; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;">プロンプト集・活用アイディア</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">コピペしてそのまま使える「通知表所見の推敲」「授業指導案の素案」「保護者会だより」等の実践テンプレートです。</p>
+          <a href="#materials" style="color: var(--primary); font-weight: 700; font-size: 0.875rem;">プロンプトテキストを見る →</a>
+        </div>
+
+        <div class="feature-box" id="apps">
+          <div class="feature-icon-wrapper" style="background: #FEF3C7; color: #D97706; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;">校務につかえるアプリ集</h3>
+          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">Canva、Googleフォーム（GAS）、NotebookLM、Geminiなど、学校現場の生産性を高めるおすすめツール連携ガイドです。</p>
+          <a href="#materials" style="color: var(--primary); font-weight: 700; font-size: 0.875rem;">アプリ活用テキストを見る →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" style="background: #0F172A; color: #94A3B8; padding: 48px 0 32px; font-size: 0.875rem; border-top: 1px solid #1E293B;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid #1E293B;">
+        <div>
+          <h2 style="color: #FFF; font-size: 1.25rem; font-weight: 800; margin-bottom: 6px;">先生のためのポータルサイト</h2>
+          <p style="font-size: 0.8125rem; color: #64748B;">教育DX推進プロジェクト | 先生の「困った」を生成AIで解決するポータル</p>
+        </div>
+        <div>
+          <a href="#materials" style="color: #94A3B8; margin-left: 20px;">教材一覧</a>
+          <a href="index2.html" style="color: #EA580C; margin-left: 20px; font-weight: 700;">今日のお話ギャラリー</a>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-size: 0.8125rem;">
+        <div>&copy; 2026 先生のためのポータルサイト. All Rights Reserved.</div>
+        <div>校内教育DX・ICT利活用推進リソース</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" id="scrollTopBtn" title="ページ最上部へ戻る">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Modal Dialog for Poster Zoom -->
+  <div class="modal-backdrop" id="posterModal">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="closePosterModal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="modal-body">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h3 id="modalStoryHeading" style="font-size: 1.25rem; font-weight: 800; color: #1E3A8A; margin-bottom: 6px;">朝の会のお話ポスター</h3>
+          <p id="modalStorySub" style="font-size: 0.875rem; color: #64748B;">印刷や教室掲示にご活用ください。</p>
+        </div>
+        <div style="max-width: 440px; margin: 0 auto; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden; background: #000;">
+          <img id="modalFullImg" src="kyounoohanasi/1112.jpg" alt="今日のお話ポスター" style="width: 100%; height: auto; display: block;">
+        </div>
+        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 24px; flex-wrap: wrap;">
+          <a id="btnDownloadFeatured" href="kyounoohanasi/1112.jpg" target="_blank" download class="btn btn-primary" style="background: #EA580C;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            ポスター画像をダウンロード
+          </a>
+          <button class="btn btn-outline" onclick="window.print()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            印刷する
+          </button>
+          <a href="index2.html" class="btn btn-outline" style="border-color: #EA580C; color: #EA580C;">
+            今日のお話全20話を見る ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       JavaScript: Dynamic Story Auto-Sync & PDF.js Auto Thumbnail Generation
+       ========================================================================= -->
+  <script>
+    // -------------------------------------------------------------------------
+    // 1. PDF.js Setup for Automatic Thumbnail Generation
+    // -------------------------------------------------------------------------
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    // Function to render first page of a PDF into a Canvas element
+    async function renderPdfFirstPageToCanvas(pdfUrl, canvasElement) {
+      if (typeof pdfjsLib === 'undefined') return false;
+      try {
+        const loadingTask = pdfjsLib.getDocument(pdfUrl);
+        const pdf = await loadingTask.promise;
+        const page = await pdf.getPage(1);
+        
+        // Calculate scale to fit width around 300px (high-DPI crisp thumbnail)
+        const viewport = page.getViewport({ scale: 1.0 });
+        const scale = 360 / viewport.width;
+        const scaledViewport = page.getViewport({ scale: scale });
+
+        canvasElement.width = scaledViewport.width;
+        canvasElement.height = scaledViewport.height;
+
+        const renderContext = {
+          canvasContext: canvasElement.getContext('2d'),
+          viewport: scaledViewport
+        };
+        await page.render(renderContext).promise;
+        return true;
+      } catch (err) {
+        console.warn('PDF.js auto thumbnail fallback for ' + pdfUrl, err);
+        return false;
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. Daily Stories Registry (Auto-Detects and Resolves Latest Date)
+    // -------------------------------------------------------------------------
+    const knownStories = [
+      { id: "1112", month: 11, day: 12, title: "ボイジャー1号に学ぶ、未知への挑戦と好奇心", body: "皆さん、おはようございます！今日11月12日は、1980年にNASAの惑星探査機『ボイジャー1号』が土星に最も近づき、美しい環や未知の衛星の鮮明な写真を地球へ届けてくれた記念すべき日です。<br><br>ボイジャー1号はその後も休むことなく飛び続け、今では太陽系を飛び出して、人類が作ったものとして最も遠い星間空間を航行しています。暗い宇宙の中を進み続けるボイジャーの旅は、私たちに「未知の世界へ踏み出す勇気」と「あきらめずに挑戦し続ける力」を教えてくれます。<br><br>皆さんも今日、初めて習う問題やちょっと苦手なことに出会ったら、「ボイジャーのように一歩前へ！」と心の中で唱えて挑戦してみませんか？自分の可能性を広げる素晴らしい一日にしていきましょう！" },
+      { id: "1111", month: 11, day: 11, title: "思いやりと挑戦のアインシュタイン", body: "皆さん、おはようございます！今日11月11日は、アインシュタインの好奇心と思いやりの心から学ぶ一日です。難しい問題にも笑顔で向き合い、お互いを思いやる温かい心を大切にしましょう！" },
+      { id: "1110", month: 11, day: 10, title: "最後まで諦めない心", body: "皆さん、おはようございます！途中で投げ出さずに工夫を重ねて最後までやり切る力。日々の小さな挑戦の積み重ねが、大きな力へと成長します。" },
+      { id: "1109", month: 11, day: 9, title: "ベルリンの壁崩壊から学ぶ、心の中の壁をなくす勇気", body: "今日11月9日はベルリンの壁が崩壊した日です。対話と笑顔で心の中の壁を取り払い、温かい声かけを交わす一日にしていきましょう！" }
+    ];
+
+    // Helper to test if image exists
+    function checkImageExists(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
+
+    // Automatically resolve today's story or fall back to the most recent one
+    async function autoSyncDailyStory() {
+      const now = new Date();
+      const curMonth = (now.getMonth() + 1).toString().padStart(2, '0');
+      const curDay = now.getDate().toString().padStart(2, '0');
+      const todayId = `${curMonth}${curDay}`;
+
+      let activeStory = null;
+      let targetLargeImg = "";
+      let targetSmallImg = "";
+
+      // Check if today's image exists on server
+      const possibleLargeJpg = `kyounoohanasi/${todayId}.jpg`;
+      const possibleLargePng = `kyounoohanasi/${todayId}.png`;
+      const possibleSmall = `kyounoohanasi/${todayId}small.png`;
+
+      if (await checkImageExists(possibleLargeJpg)) {
+        targetLargeImg = possibleLargeJpg;
+        targetSmallImg = (await checkImageExists(possibleSmall)) ? possibleSmall : possibleLargeJpg;
+        activeStory = {
+          id: todayId,
+          dateLabel: `${parseInt(curMonth)}月${parseInt(curDay)}日のお話`,
+          title: `今日のお話（${parseInt(curMonth)}月${parseInt(curDay)}日バージョン）`,
+          body: `本日の「朝の会のお話」ポスターが公開されました！画像をクリックして教室掲示や印刷にご活用ください。`
+        };
+      } else if (await checkImageExists(possibleLargePng)) {
+        targetLargeImg = possibleLargePng;
+        targetSmallImg = (await checkImageExists(possibleSmall)) ? possibleSmall : possibleLargePng;
+        activeStory = {
+          id: todayId,
+          dateLabel: `${parseInt(curMonth)}月${parseInt(curDay)}日のお話`,
+          title: `今日のお話（${parseInt(curMonth)}月${parseInt(curDay)}日バージョン）`,
+          body: `本日の「朝の会のお話」ポスターが公開されました！画像をクリックして教室掲示や印刷にご活用ください。`
+        };
+      }
+
+      // If today is not uploaded yet, use the latest registered story
+      if (!activeStory) {
+        activeStory = knownStories[0]; // 1112
+        targetLargeImg = `kyounoohanasi/${activeStory.id}.jpg`;
+        targetSmallImg = `kyounoohanasi/${activeStory.id}small.png`;
+      }
+
+      // Apply to UI
+      document.getElementById("featuredDateText").textContent = activeStory.dateLabel || `${activeStory.month}月${activeStory.day}日のお話`;
+      document.getElementById("featuredStoryTitle").innerHTML = activeStory.title;
+      document.getElementById("featuredStoryBody").innerHTML = activeStory.body;
+      document.getElementById("featuredPosterImg").src = targetSmallImg;
+      document.getElementById("modalFullImg").src = targetLargeImg;
+      document.getElementById("btnDownloadFeatured").href = targetLargeImg;
+      document.getElementById("modalStoryHeading").textContent = activeStory.title;
+    }
+
+    // -------------------------------------------------------------------------
+    // 3. Materials Dataset & Dynamic Detection of Newly Added PDFs
+    // -------------------------------------------------------------------------
+    const baseMaterials = [
+      { id: "TEXT34", volNum: 34, volLabel: "VOL.34", title: "AIからCanvaへ", subtitle: "AIで生成したテキストや構成を素早くCanvaに取り込んでデザイン化する手順", category: "canva", categoryName: "Canva・デザイン", pdfPath: "TEXT/TEXT34.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT34_page_001.png" },
+      { id: "TEXT33", volNum: 33, volLabel: "VOL.33", title: "ポータルサイトリニューアル", subtitle: "教育DX推進のための校内ポータルサイト構築とリニューアルのポイント", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT33.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT33_page_001.png" },
+      { id: "TEXT32", volNum: 32, volLabel: "VOL.32", title: "プロンプトを打って校内ポスターを作ろう", subtitle: "プロンプトを工夫して魅力的でわかりやすい校内掲示・ポスターを瞬時に作成", category: "prompt", categoryName: "プロンプト活用", pdfPath: "TEXT/TEXT32.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT32_page_001.png" },
+      { id: "TEXT31", volNum: 31, volLabel: "VOL.31", title: "生成AI活用に関する教職員アンケート", subtitle: "教職員のAI活用意識調査と教育DX推進に向けたアンケート集計・分析結果", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT31.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT31_page_001.png" },
+      { id: "TEXT30", volNum: 30, volLabel: "VOL.30", title: "教育DX推進 豆研修シリーズ VOL.30", subtitle: "30回記念・校内での定着に向けたステップアップ活用術", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT30.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT30_page_001.png" },
+      { id: "TEXT29", volNum: 29, volLabel: "VOL.29", title: "GAS＆Googleフォーム自動化", subtitle: "Googleフォームとスプレッドシート・GASを連携した自動集計と通知", category: "koumu", categoryName: "校務効率化", pdfPath: "TEXT/TEXT29.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT29_page_001.png" },
+      { id: "TEXT28", volNum: 28, volLabel: "VOL.28", title: "GEMをつかってみよう！解説動画あり", subtitle: "カスタムGemINI（GEM）を作成して毎日のルーチン業務を自動化する実践法", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT28.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT28_page_001.png" },
+      { id: "TEXT27", volNum: 27, volLabel: "VOL.27", title: "CANVAでパワポをつくろう！解説動画あり", subtitle: "Canvaを活用して防災や授業のプレゼンテーションスライドを効率的に作成", category: "canva", categoryName: "Canva・デザイン", pdfPath: "TEXT/TEXT27.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT27_page_001.png" },
+      { id: "TEXT26_coming", volNum: 26, volLabel: "VOL.26", title: "次回テーマ：授業準備AI活用", subtitle: "ただいま作成中！もうしばらくお待ちください。すてきなページをご用意しています！", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "#", imgPath: "", status: "coming_soon" },
+      { id: "TEXT25_b", volNum: 25.5, volLabel: "VOL.25 補足", title: "豆研修シリーズを動画にしてみました！", subtitle: "動画解説版の作成ノウハウと動画視聴による効果的な自習ステップ", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT25_b.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT25_b_page_001.png" },
+      { id: "TEXT25", volNum: 25, volLabel: "VOL.25", title: "教育DX推進担当者会議から！", subtitle: "担当者会議で出た現場のリアルな意見と今後のDXロードマップ", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT25.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT25_page_001.png" },
+      { id: "TEXT24_coming", volNum: 24, volLabel: "VOL.24", title: "次回テーマ：校務アシスタント", subtitle: "ただいま作成中！もうしばらくお待ちください。すてきなページをご用意しています！", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "#", imgPath: "", status: "coming_soon" },
+      { id: "TEXT23", volNum: 23, volLabel: "VOL.23", title: "キャンバシリーズ！画像編集", subtitle: "写真の切り抜きや背景透過、魔法の拡張を使った画像編集の決定版", category: "canva", categoryName: "Canva・デザイン", pdfPath: "TEXT/TEXT23.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT23_page_001.png" },
+      { id: "TEXT22", volNum: 22, volLabel: "VOL.22", title: "キャンバシリーズ！基本編", subtitle: "学校向けCanva教育機関アカウントの初期設定と基本操作ガイド", category: "canva", categoryName: "Canva・デザイン", pdfPath: "TEXT/TEXT22.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT22_page_001.png" },
+      { id: "TEXT21", volNum: 21, volLabel: "VOL.21", title: "議事録の作成！！", subtitle: "職員会議や委員会での発言メモを生成AIでスマートな議事録に要約", category: "koumu", categoryName: "校務効率化", pdfPath: "TEXT/TEXT21.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT21_page_001.png" },
+      { id: "TEXT20_b", volNum: 20.5, volLabel: "VOL.20 BEST", title: "Gemini BEST 20選", subtitle: "Geminiの教育現場における厳選活用法・プロンプトベスト20", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT20_b.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT20_b_page_001.png" },
+      { id: "TEXT20", volNum: 20, volLabel: "VOL.20", title: "1学期のまとめ 生成AI使えるベスト5！", subtitle: "1学期の実践で見えてきた、先生方が本当に使える神機能ベスト5", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT20.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT20_page_001.png" },
+      { id: "TEXT19", volNum: 19, volLabel: "VOL.19", title: "NotebookLMがGemini Notebookに", subtitle: "ノートブック型AIの進化と授業案・教材研究での革命的活用法", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT19.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT19_page_001.png" },
+      { id: "TEXT18", volNum: 18, volLabel: "VOL.18", title: "NotebookLM 研修まとめ", subtitle: "学校の指導要領やPDF資料を読み込ませて専属AIアシスタントを作る", category: "mame", categoryName: "豆研修シリーズ", pdfPath: "TEXT/TEXT18.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT18_page_001.png" },
+      { id: "TEXT17", volNum: 17, volLabel: "VOL.17", title: "実践テキスト＆補足まとめ", subtitle: "基本テキスト17の補足事項と現場での疑問点を解消するQ&A", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT17.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT17_page_001.png" },
+      { id: "TEXT16", volNum: 16, volLabel: "VOL.16", title: "生成AI実践マスター 第16回", subtitle: "プロンプトの精度を高める条件付けと出力フォーマット指定の極意", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT16.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT16_page_001.png" },
+      { id: "TEXT15", volNum: 15, volLabel: "VOL.15", title: "校務に使える便利アプリ特集", subtitle: "毎日の事務作業を半分に減らす、厳選された無料＆教育向けアプリ", category: "koumu", categoryName: "校務効率化", pdfPath: "TEXT/TEXT15.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT15_page_001.png" },
+      { id: "TEXT14", volNum: 14, volLabel: "VOL.14", title: "Canva活用編 Part 2", subtitle: "テンプレートを活用した学級通信・プリントの時短デザイン技法", category: "canva", categoryName: "Canva・デザイン", pdfPath: "TEXT/TEXT14.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT14_page_001.png" },
+      { id: "TEXT13", volNum: 13, volLabel: "VOL.13", title: "学級目標が本物の歌に！", subtitle: "音楽AIを活用して、児童生徒と決めた学級目標をオリジナルソングに昇華", category: "prompt", categoryName: "プロンプト活用", pdfPath: "TEXT/TEXT13.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT13_page_001.png" },
+      { id: "TEXT12", volNum: 12, volLabel: "VOL.12", title: "写真を映画の世界に", subtitle: "学校行事の写真やイラストをAIでエモーショナルなシネマ風グラフィックに変換", category: "prompt", categoryName: "プロンプト活用", pdfPath: "TEXT/TEXT12.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT12_page_001.png" },
+      { id: "TEXT11", volNum: 11, volLabel: "VOL.11", title: "同僚ボットの作成・活用", subtitle: "いつでも相談できるAIの同僚パートナーをつくるための設計手順", category: "koumu", categoryName: "校務効率化", pdfPath: "TEXT/TEXT11.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT11_page_001.png" },
+      { id: "TEXT10", volNum: 10, volLabel: "VOL.10", title: "画像生成AIの基礎と実践", subtitle: "授業教材やワークシートに使えるイラスト・図解のプロンプト入門", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT10.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT10_page_001.png" },
+      { id: "TEXT9", volNum: 9, volLabel: "VOL.9", title: "魔法のプロンプト集", subtitle: "指示を変えるだけで劇的に回答が変わる、教員向け必携プロンプト集", category: "prompt", categoryName: "プロンプト活用", pdfPath: "TEXT/TEXT9.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT9_page_001.png" },
+      { id: "TEXT8", volNum: 8, volLabel: "VOL.8", title: "Canva入門ガイド", subtitle: "直感的操作でデザイン！Canva for Educationの初歩から応用まで", category: "canva", categoryName: "Canva・デザイン", pdfPath: "TEXT/TEXT8.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT8_page_001.png" },
+      { id: "TEXT7", volNum: 7, volLabel: "VOL.7", title: "生成AI基礎テキスト 7", subtitle: "安全な教育利用のための情報モラルと著作権・肖像権チェックポイント", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT7.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT7_page_001.png" },
+      { id: "TEXT6", volNum: 6, volLabel: "VOL.6", title: "生成AI基礎テキスト 6", subtitle: "授業案作成のステップアップ：単元目標と児童生徒のつまずき予測", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT6.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT6_page_001.png" },
+      { id: "TEXT5", volNum: 5, volLabel: "VOL.5", title: "生成AI基礎テキスト 5", subtitle: "テスト問題や小テストの作成支援と模範解答・解説の自動生成", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT5.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT5_page_001.png" },
+      { id: "TEXT4", volNum: 4, volLabel: "VOL.4", title: "生成AI基礎テキスト 4", subtitle: "長文の教育論文や文科省答申の要点を一瞬で抽出する要約テクニック", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT4.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT4_page_001.png" },
+      { id: "TEXT3", volNum: 3, volLabel: "VOL.3", title: "生成AI基礎テキスト 3", subtitle: "校外学習のしおりや保護者宛ての各種通知文の原案をすばやく作成", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT3.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT3_page_001.png" },
+      { id: "TEXT2", volNum: 2, volLabel: "VOL.2", title: "生成AI基礎テキスト 2", subtitle: "質問の仕方で差がつく！AIから最適な回答を引き出すための3つのコツ", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT2.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT2_page_001.png" },
+      { id: "TEXT1", volNum: 1, volLabel: "VOL.1", title: "生成AI基礎テキスト 1", subtitle: "生成AIのファーストステップ：教育現場での第一歩とアカウント設定", category: "basic", categoryName: "基本編", pdfPath: "TEXT/TEXT1.pdf", imgPath: "all_pdf_resized_pngs_20pct/TEXT1_page_001.png" }
+    ];
+
+    let dynamicMaterials = [...baseMaterials];
+
+    // Helper to probe if a newly uploaded PDF exists (e.g. TEXT35, TEXT36...)
+    async function probeNewPdfs() {
+      let nextVol = 35;
+      let foundNew = false;
+      while (nextVol <= 50) {
+        const testPdf = `TEXT/TEXT${nextVol}.pdf`;
+        try {
+          const res = await fetch(testPdf, { method: 'HEAD' });
+          if (res.ok) {
+            // New PDF found! Automatically add card without any HTML edits!
+            dynamicMaterials.unshift({
+              id: `TEXT${nextVol}`,
+              volNum: nextVol,
+              volLabel: `VOL.${nextVol}`,
+              title: `教育DX推進 豆研修 VOL.${nextVol}`,
+              subtitle: `最新アップロード教材。クリックして高解像度PDFテキストを閲覧できます。`,
+              category: "mame",
+              categoryName: "豆研修シリーズ",
+              pdfPath: testPdf,
+              imgPath: "", // Will be auto-rendered by PDF.js!
+              isAutoDetected: true
+            });
+            foundNew = true;
+            nextVol++;
+          } else {
+            break;
+          }
+        } catch (e) {
+          break;
+        }
+      }
+
+      if (foundNew) {
+        updateCategoryCounts();
+        renderMaterials();
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. Rendering & Dynamic Canvas Injection
+    // -------------------------------------------------------------------------
+    let currentCategory = "all";
+    let searchQuery = "";
+    let sortOrder = "newest";
+
+    const grid = document.getElementById("materialsGrid");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const filterTabs = document.getElementById("filterTabs");
+
+    function renderMaterials() {
+      let filtered = dynamicMaterials.filter(item => {
+        if (currentCategory === "all") return true;
+        return item.category === currentCategory;
+      });
+
+      if (searchQuery.trim() !== "") {
+        const q = searchQuery.toLowerCase().trim();
+        filtered = filtered.filter(item => {
+          return item.title.toLowerCase().includes(q) ||
+                 item.subtitle.toLowerCase().includes(q) ||
+                 item.volLabel.toLowerCase().includes(q) ||
+                 item.categoryName.toLowerCase().includes(q);
+        });
+      }
+
+      filtered.sort((a, b) => {
+        return sortOrder === "newest" ? (b.volNum - a.volNum) : (a.volNum - b.volNum);
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #fff; border-radius: 12px; border: 1px dashed #cbd5e1;">
+            <p style="font-size: 1.125rem; font-weight: 700; color: #64748B;">該当する教材が見つかりませんでした。</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => {
+        if (item.status === "coming_soon") {
+          return `
+            <div class="material-card" style="background: linear-gradient(135deg, #FEF9C3 0%, #FEF08A 100%); border: 2px dashed #EAB308;">
+              <div class="card-thumb-wrapper" style="background: transparent; flex-direction: column; padding: 20px; text-align: center;">
+                <span style="background: #DC2626; color: #FFF; font-weight: 800; font-size: 0.8125rem; padding: 4px 12px; border-radius: 100px; margin-bottom: 8px;">ただいま作成中</span>
+                <div style="font-size: 0.75rem; font-weight: 700; color: #854D0E;">もうしばらくお待ちください！</div>
+              </div>
+              <div class="card-info">
+                <div>
+                  <div class="card-vol-label" style="color: #D97706;">${item.volLabel}</div>
+                  <h4 class="card-title" style="color: #78350F;">${item.title}</h4>
+                  <p class="card-desc">${item.subtitle}</p>
+                </div>
+                <div class="card-footer">
+                  <span class="category-pill">準備中</span>
+                  <span>近日公開</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // If imagePath is empty, use a Canvas element for PDF.js to auto-render!
+        const mediaHtml = item.imgPath 
+          ? `<img src="${item.imgPath}" alt="${item.title}" class="card-thumb-img" loading="lazy">`
+          : `<canvas class="pdf-canvas-thumb" data-pdf="${item.pdfPath}"></canvas>`;
+
+        return `
+          <div class="material-card" data-id="${item.id}">
+            <a href="${item.pdfPath}" target="_blank" rel="noopener noreferrer" class="card-thumb-wrapper" title="${item.title} をPDFで開く">
+              <span class="pdf-badge-tag">PDF</span>
+              <span class="vol-badge-tag">${item.volLabel}</span>
+              ${item.isAutoDetected ? '<span style="position:absolute; bottom:10px; left:10px; background:#10B981; color:#fff; font-size:0.6875rem; font-weight:800; padding:2px 8px; border-radius:100px; z-index:2;">NEW!</span>' : ''}
+              ${mediaHtml}
+              <div class="card-overlay">
+                <span class="overlay-action-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  PDFを開く ↗
+                </span>
+              </div>
+            </a>
+            <div class="card-info">
+              <div>
+                <div class="card-vol-label">${item.volLabel}</div>
+                <h4 class="card-title">
+                  <a href="${item.pdfPath}" target="_blank" rel="noopener noreferrer" style="color: inherit;">
+                    ${item.title}
+                  </a>
+                </h4>
+                <p class="card-desc">${item.subtitle}</p>
+              </div>
+              <div class="card-footer">
+                <span class="category-pill">${item.categoryName}</span>
+                <a href="${item.pdfPath}" target="_blank" rel="noopener noreferrer" style="color: var(--primary-light); font-weight: 700;">
+                  読む ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Trigger PDF.js rendering for any canvas thumbnails
+      document.querySelectorAll('canvas.pdf-canvas-thumb').forEach(canvas => {
+        const pdfUrl = canvas.getAttribute('data-pdf');
+        if (pdfUrl) {
+          renderPdfFirstPageToCanvas(pdfUrl, canvas);
+        }
+      });
+    }
+
+    function updateCategoryCounts() {
+      const counts = {
+        all: dynamicMaterials.length,
+        mame: dynamicMaterials.filter(i => i.category === "mame").length,
+        canva: dynamicMaterials.filter(i => i.category === "canva").length,
+        koumu: dynamicMaterials.filter(i => i.category === "koumu").length,
+        prompt: dynamicMaterials.filter(i => i.category === "prompt").length,
+        basic: dynamicMaterials.filter(i => i.category === "basic").length
+      };
+
+      document.getElementById("countAll").textContent = counts.all;
+      document.getElementById("countMame").textContent = counts.mame;
+      document.getElementById("countCanva").textContent = counts.canva;
+      document.getElementById("countKoumu").textContent = counts.koumu;
+      document.getElementById("countPrompt").textContent = counts.prompt;
+      document.getElementById("countBasic").textContent = counts.basic;
+    }
+
+    // Modal Interaction
+    const posterModal = document.getElementById("posterModal");
+    const openPosterModal = document.getElementById("openPosterModal");
+    const btnPreviewPoster = document.getElementById("btnPreviewPoster");
+    const closePosterModal = document.getElementById("closePosterModal");
+
+    function openModal() {
+      posterModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      posterModal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    openPosterModal.addEventListener("click", openModal);
+    btnPreviewPoster.addEventListener("click", openModal);
+    closePosterModal.addEventListener("click", closeModal);
+    posterModal.addEventListener("click", (e) => {
+      if (e.target === posterModal) closeModal();
+    });
+
+    // Scroll to Top
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        scrollTopBtn.classList.add("visible");
+      } else {
+        scrollTopBtn.classList.remove("visible");
+      }
+    });
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Filter, Search, Sort Events
+    filterTabs.addEventListener("click", (e) => {
+      const btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentCategory = btn.dataset.category;
+      renderMaterials();
+    });
+
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      renderMaterials();
+    });
+
+    sortSelect.addEventListener("change", (e) => {
+      sortOrder = e.target.value;
+      renderMaterials();
+    });
+
+    // Initialization: Render materials, check today's story, probe for new PDFs
+    updateCategoryCounts();
+    renderMaterials();
+    autoSyncDailyStory();
+    probeNewPdfs();
+  </script>
+</body>
+</html>
