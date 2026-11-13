@@ -803,7 +803,7 @@
         </a>
         <div class="nav-brand-title">
           今日のお話ポスターギャラリー
-          <span>全20話 アーカイブ</span>
+          <span id="navCount">アーカイブ</span>
         </div>
       </div>
     </div>
@@ -827,11 +827,11 @@
         <div class="hero-stats-row">
           <div class="hero-stats-item">
             <span>収録数:</span>
-            <strong id="statCount">20</strong> <span>話</span>
+            <strong id="statCount">21</strong> <span>話</span>
           </div>
           <div class="hero-stats-item">
             <span>期間:</span>
-            <strong>10月9日 〜 11月12日</strong>
+            <strong id="statPeriod">10月9日 〜 11月13日</strong>
           </div>
           <div class="hero-stats-item">
             <span>更新:</span>
@@ -848,18 +848,8 @@
       
       <!-- Controls Bar -->
       <div class="gallery-controls">
-        <!-- Month Filter Tabs -->
-        <div class="filter-tabs" id="filterTabs">
-          <button class="tab-btn active" data-month="all">
-            すべて表示 <span class="tab-badge" id="badgeAll">20</span>
-          </button>
-          <button class="tab-btn" data-month="11">
-            11月のお話 <span class="tab-badge" id="badgeNov">9</span>
-          </button>
-          <button class="tab-btn" data-month="10">
-            10月のお話 <span class="tab-badge" id="badgeOct">11</span>
-          </button>
-        </div>
+        <!-- Month Filter Tabs (JavaScriptで月ごとに自動生成) -->
+        <div class="filter-tabs" id="filterTabs"></div>
 
         <!-- Search & Sort -->
         <div class="search-sort-wrap">
@@ -869,7 +859,7 @@
           </div>
           <select class="sort-select" id="sortSelect">
             <option value="newest">新しい順（最新日〜）</option>
-            <option value="oldest">古い順（10月9日〜）</option>
+            <option value="oldest">古い順（古い日付から）</option>
           </select>
         </div>
       </div>
@@ -936,6 +926,17 @@
     // Dataset of 20 Daily Stories (今日は何の日)
     // =========================================================================
     const storiesData = [
+      {
+        id: "1113",
+        sortKey: 1113,
+        month: 11,
+        dateLabel: "11月13日のお話",
+        title: "世界初のヘリコプター飛行から学ぶ、好奇心と小さな一歩の大切さ",
+        desc: "1907年の今日、フランスで人を乗せたヘリコプターが世界で初めて浮上。自転車屋さんの好奇心から踏み出した小さな一歩が未来を切り開きました。",
+        largeImg: "kyounoohanasi/1113.png",
+        thumbImg: "kyounoohanasi/1113small.png",
+        isLatest: false
+      },
       {
         id: "1112",
         sortKey: 1112,
@@ -1298,13 +1299,51 @@
       if (e.key === "ArrowRight") nextStory();
     });
 
+    // =========================================================================
+    // 月タブ・件数・期間の自動更新
+    // =========================================================================
+    const monthKey = (item) => item.sortKey; // 年月日を含む数値（例: 20261113）
+
+    function updateStats() {
+      const sorted = [...storiesData].sort((a, b) => a.sortKey - b.sortKey);
+      const first = sorted[0];
+      const last = sorted[sorted.length - 1];
+      const label = (it) => `${parseInt(it.id.slice(0, 2), 10)}月${parseInt(it.id.slice(2), 10)}日`;
+
+      // 最新の1件だけに「最新！」を付ける
+      storiesData.forEach(it => { it.isLatest = (it === last); });
+
+      document.getElementById("statCount").textContent = storiesData.length;
+      document.getElementById("navCount").textContent = `全${storiesData.length}話 アーカイブ`;
+      document.getElementById("statPeriod").textContent = `${label(first)} 〜 ${label(last)}`;
+      sortSelect.querySelector('option[value="oldest"]').textContent = `古い順（${label(first)}〜）`;
+    }
+
+    function renderTabs() {
+      // 月ごとの件数（新しい月が左）
+      const monthMap = new Map();
+      [...storiesData].sort((a, b) => b.sortKey - a.sortKey).forEach(it => {
+        monthMap.set(it.month, (monthMap.get(it.month) || 0) + 1);
+      });
+      let html = `<button class="tab-btn ${currentMonth === "all" ? "active" : ""}" data-month="all">すべて表示 <span class="tab-badge">${storiesData.length}</span></button>`;
+      monthMap.forEach((count, m) => {
+        html += `<button class="tab-btn ${currentMonth === String(m) ? "active" : ""}" data-month="${m}">${m}月のお話 <span class="tab-badge">${count}</span></button>`;
+      });
+      filterTabs.innerHTML = html;
+    }
+
+    function refreshAll() {
+      updateStats();
+      renderTabs();
+      renderCards();
+    }
+
     // Filters & Sorting Events
     filterTabs.addEventListener("click", (e) => {
       const btn = e.target.closest(".tab-btn");
       if (!btn) return;
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
       currentMonth = btn.dataset.month;
+      renderTabs();
       renderCards();
     });
 
@@ -1318,77 +1357,74 @@
       renderCards();
     });
 
-    // Automatically probe server for new stories added today or upcoming days
-    async function probeNewStories() {
-      const now = new Date();
-      let foundAny = false;
+    // =========================================================================
+    // フォルダ(kyounoohanasi)に保存した新しい画像を自動で検出して一覧に追加
+    //   ファイル名: 月日4桁.png（例: 1114.png）／ サムネイル: 月日4桁small.png
+    //   png・jpg・jpeg に対応。small が無ければ大きい画像で代用します。
+    // =========================================================================
+    function imageExists(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
 
-      // Check today, yesterday, and upcoming 3 days
-      for (let offset = -1; offset <= 5; offset++) {
+    async function findFirstExisting(base) {
+      for (const ext of ['png', 'jpg', 'jpeg']) {
+        const url = `${base}.${ext}`;
+        if (await imageExists(url)) return url;
+      }
+      return "";
+    }
+
+    async function probeNewStories() {
+      const DAYS_BACK = 60;   // 何日前まで探すか
+      const DAYS_AHEAD = 1;   // 明日分まで探す
+      const now = new Date();
+      const known = new Set(storiesData.map(s => s.id));
+      const tasks = [];
+
+      for (let offset = -DAYS_BACK; offset <= DAYS_AHEAD; offset++) {
         const d = new Date(now);
         d.setDate(d.getDate() + offset);
-        const mm = (d.getMonth() + 1).toString().padStart(2, '0');
-        const dd = d.getDate().toString().padStart(2, '0');
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
         const id = `${mm}${dd}`;
-        const sortKey = parseInt(id, 10);
+        if (known.has(id)) continue;
+        known.add(id);
 
-        // If already in list, skip
-        if (storiesData.some(s => s.id === id)) continue;
-
-        // Probe jpg and png
-        const jpgUrl = `kyounoohanasi/${id}.jpg`;
-        const pngUrl = `kyounoohanasi/${id}.png`;
-        const smallUrl = `kyounoohanasi/${id}small.png`;
-
-        let foundImg = "";
-        try {
-          const resJpg = await fetch(jpgUrl, { method: 'HEAD' });
-          if (resJpg.ok) foundImg = jpgUrl;
-        } catch (e) {}
-
-        if (!foundImg) {
-          try {
-            const resPng = await fetch(pngUrl, { method: 'HEAD' });
-            if (resPng.ok) foundImg = pngUrl;
-          } catch (e) {}
-        }
-
-        if (foundImg) {
-          // Probe small thumbnail
-          let thumbImg = foundImg;
-          try {
-            const resSmall = await fetch(smallUrl, { method: 'HEAD' });
-            if (resSmall.ok) thumbImg = smallUrl;
-          } catch (e) {}
-
-          // Auto-insert newly discovered story!
-          storiesData.unshift({
-            id: id,
-            sortKey: sortKey,
-            month: parseInt(mm, 10),
-            dateLabel: `${parseInt(mm, 10)}月${parseInt(dd, 10)}日のお話`,
-            title: `今日のお話（${parseInt(mm, 10)}月${parseInt(dd, 10)}日）`,
-            desc: `最新アップロードのお話ポスターです。画像をクリックして拡大表示や印刷ができます。`,
-            largeImg: foundImg,
-            thumbImg: thumbImg,
-            isLatest: true
-          });
-          foundAny = true;
-        }
+        tasks.push((async () => {
+          const large = await findFirstExisting(`kyounoohanasi/${id}`);
+          const small = await findFirstExisting(`kyounoohanasi/${id}small`);
+          if (!large && !small) return null;
+          const m = d.getMonth() + 1, day = d.getDate();
+          return {
+            id,
+            sortKey: d.getFullYear() * 10000 + m * 100 + day,
+            month: m,
+            dateLabel: `${m}月${day}日のお話`,
+            title: `${m}月${day}日のお話`,
+            desc: `${m}月${day}日の「今日のお話」ポスターです。画像をクリックして拡大表示や印刷ができます。`,
+            largeImg: large || small,
+            thumbImg: small || large,
+            isLatest: false
+          };
+        })());
       }
 
-      if (foundAny) {
-        // Update stats and counts
-        document.getElementById("statCount").textContent = storiesData.length;
-        document.getElementById("badgeAll").textContent = storiesData.length;
-        document.getElementById("badgeNov").textContent = storiesData.filter(s => s.month === 11).length;
-        document.getElementById("badgeOct").textContent = storiesData.filter(s => s.month === 10).length;
-        renderCards();
+      const found = (await Promise.all(tasks)).filter(Boolean);
+      if (found.length > 0) {
+        storiesData.push(...found);
+        refreshAll();
       }
     }
 
     // Init
-    renderCards();
+    // 既存データの sortKey に年(2026)を付与して、年をまたいでも並び順が崩れないようにする
+    storiesData.forEach(s => { if (s.sortKey < 10000) s.sortKey += 20260000; });
+    refreshAll();
     probeNewStories();
   </script>
 </body>
