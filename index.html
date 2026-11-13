@@ -928,6 +928,90 @@
         font-size: 1.75rem;
       }
     }
+
+    /* ==========================================================================
+       解説動画・アプリ集コーナー（vx- / ax-）
+       ========================================================================== */
+    #videos, #apps { scroll-margin-top: 90px; }
+    .vx-section { padding: 16px 0 32px; }
+    .ax-section { padding: 32px 0 80px; }
+    .vx-band { background: linear-gradient(135deg, #1E1B4B 0%, #4338CA 100%); }
+    .ax-band { background: linear-gradient(135deg, #78350F 0%, #C2410C 100%); }
+    .vx-band-badge {
+      display: inline-block; background: rgba(255,255,255,0.2); color: #FFFFFF;
+      padding: 6px 14px; border-radius: 100px; font-size: 0.8125rem; font-weight: 700;
+    }
+
+    .vx-thumb {
+      position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #312E81, #4F46E5); overflow: hidden;
+    }
+    .vx-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .vx-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(15,23,42,0.35), transparent 60%); }
+    .vx-play > span {
+      width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,0.95); color: #DC2626;
+      display: flex; align-items: center; justify-content: center; padding-left: 3px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3); transition: var(--transition);
+    }
+
+    .vx-featured {
+      display: grid; grid-template-columns: 1.35fr 1fr; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: var(--shadow-md); margin-bottom: 24px; transition: var(--transition);
+    }
+    .vx-featured:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: #A5B4FC; }
+    .vx-featured:hover .vx-thumb img, .vx-card:hover .vx-thumb img { transform: scale(1.05); }
+    .vx-featured:hover .vx-play > span, .vx-card:hover .vx-play > span { transform: scale(1.12); background: #FFFFFF; }
+    .vx-featured .vx-play > span { width: 72px; height: 72px; }
+    .vx-featured-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+    .vx-new { width: fit-content; background: #EF4444; color: #FFFFFF; font-size: 0.75rem; font-weight: 800; padding: 3px 10px; border-radius: 100px; }
+    .vx-featured-tag { font-size: 0.8125rem; font-weight: 800; color: #4F46E5; }
+    .vx-featured-title { font-size: 1.5rem; font-weight: 800; line-height: 1.35; color: var(--text-main); }
+    .vx-featured-title small { display: block; font-size: 1rem; font-weight: 700; color: var(--text-muted); margin-top: 4px; }
+    .vx-featured-text { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+    .vx-cta {
+      width: fit-content; margin-top: 6px; background: #4F46E5; color: #FFFFFF; font-weight: 700;
+      font-size: 0.9375rem; padding: 11px 22px; border-radius: var(--radius-sm); box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+    }
+
+    .vx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .vx-card {
+      display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .vx-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: #A5B4FC; }
+    .vx-card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex-grow: 1; }
+    .vx-tag { width: fit-content; font-size: 0.6875rem; font-weight: 800; color: #4338CA; background: #EEF2FF; padding: 2px 9px; border-radius: 100px; }
+    .vx-card-title { font-size: 0.9375rem; font-weight: 700; color: var(--text-main); line-height: 1.45; }
+    .vx-card-sub { font-size: 0.8125rem; color: var(--text-muted); }
+    .vx-card-cta { margin-top: auto; padding-top: 8px; font-size: 0.8125rem; font-weight: 700; color: #4F46E5; }
+
+    .vx-more { text-align: right; margin-top: 18px; font-size: 0.875rem; }
+    .vx-more a { color: var(--primary); font-weight: 700; }
+    .vx-more a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    .ax-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .ax-card {
+      display: flex; flex-direction: column; gap: 6px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-sm); transition: var(--transition);
+    }
+    .ax-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-color: #FDBA74; }
+    .ax-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+    .ax-tag { width: fit-content; font-size: 0.6875rem; font-weight: 800; color: #C2410C; background: var(--accent-soft); padding: 2px 9px; border-radius: 100px; }
+    .ax-name { font-size: 1.0625rem; font-weight: 800; color: var(--text-main); line-height: 1.4; }
+    .ax-desc { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.65; }
+    .ax-cta { margin-top: auto; padding-top: 10px; font-size: 0.875rem; font-weight: 700; color: #EA580C; }
+    .ax-card:hover .ax-cta { text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 900px) {
+      .vx-featured { grid-template-columns: 1fr; }
+      .vx-featured-body { padding: 22px; }
+      .vx-grid, .ax-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .vx-grid, .ax-grid { grid-template-columns: 1fr; }
+      .vx-featured-title { font-size: 1.25rem; }
+    }
   </style>
 </head>
 <body>
@@ -1000,7 +1084,7 @@
           </a>
           <a href="index2.html" class="hero-nav-chip" style="background: rgba(234, 88, 12, 0.35); border-color: #F97316;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            今日のお話ポスター一覧（全20話） ↗
+            今日のお話ポスター一覧 ↗
           </a>
           <a href="#apps" class="hero-nav-chip">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1018,7 +1102,7 @@
         <span class="ticker-label">お知らせ・新着</span>
         <div class="ticker-text" id="newsTickerText">
           毎日更新！！今日の「朝の会のお話」！最新版ポスターを公開中！
-          <a href="index2.html" class="ticker-link">全20話ポスターギャラリーを見る ↗</a>
+          <a href="index2.html" class="ticker-link">ポスターギャラリーを見る ↗</a>
         </div>
       </div>
     </div>
@@ -1047,7 +1131,7 @@
               <span id="featuredDateText">11月13日のお話</span>
             </div>
             <a href="index2.html" style="font-size: 0.8125rem; font-weight: 700; color: #EA580C; background: #FFF7ED; padding: 4px 12px; border-radius: 100px; border: 1px solid #FDBA74; display: inline-flex; align-items: center; gap: 4px;">
-              <span>全21話ギャラリーを見る ↗</span>
+              <span>ギャラリーを見る ↗</span>
             </a>
           </div>
 
@@ -1071,7 +1155,7 @@
           <div class="story-actions" style="flex-wrap: wrap;">
             <a href="index2.html" class="btn btn-primary" style="background: #EA580C; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              今日のお話ポスター一覧を見る（全21話） ↗
+              今日のお話ポスター一覧を見る ↗
             </a>
             <button class="btn btn-outline" id="btnPreviewPoster">
               ポスターを拡大・印刷
@@ -1151,19 +1235,155 @@
     </div>
   </section>
 
-  <!-- Additional Feature Resources Section -->
-  <section class="section-features" id="videos">
+  <!-- ===== 豆研修テキストの解説動画 ===== -->
+  <section class="vx-section" id="videos">
+    <div class="container">
+      <div class="section-header-band vx-band">
+        <div class="section-header-text">
+          <h2>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            豆研修テキストの解説動画
+          </h2>
+          <p>テキストの内容を動画でサクッと視聴。空き時間にスマホからでも視聴できる解説ショートムービー集です。</p>
+        </div>
+        <div>
+          <span class="vx-band-badge">▶ 全10本 ／ スマホでも視聴OK</span>
+        </div>
+      </div>
+
+      <a class="vx-featured" href="https://youtu.be/JFbo-Xg2-TM" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ35（スキルへ）をYouTubeで見る">
+            <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/JFbo-Xg2-TM/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ35" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+            <span class="vx-featured-body">
+              <span class="vx-new">▶ 最新の解説動画</span>
+              <span class="vx-featured-tag">VOL.35</span>
+              <span class="vx-featured-title">教育DX推進 豆研修シリーズ35<small>スキルへ</small></span>
+              <span class="vx-featured-text">空き時間にスマホからでもサクッと視聴できます。まずはこの1本からどうぞ。</span>
+              <span class="vx-cta">YouTubeで見る ▶</span>
+            </span>
+          </a>
+
+      <div class="vx-grid">
+            <a class="vx-card" href="https://youtu.be/MyPj8cHMiDM" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ（解説動画）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/MyPj8cHMiDM/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">豆研修</span>
+                <span class="vx-card-title">教育DX推進 豆研修シリーズ</span>
+                <span class="vx-card-sub">解説動画</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+            <a class="vx-card" href="https://youtu.be/HofX86DlM0Y" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ（GASでアンケート）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/HofX86DlM0Y/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">GAS</span>
+                <span class="vx-card-title">教育DX推進 豆研修シリーズ</span>
+                <span class="vx-card-sub">GASでアンケート</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+            <a class="vx-card" href="https://youtu.be/Xcw4wXl_akY" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ27（Canvaでプレゼン）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/Xcw4wXl_akY/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ27" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">VOL.27</span>
+                <span class="vx-card-title">教育DX推進 豆研修シリーズ27</span>
+                <span class="vx-card-sub">Canvaでプレゼン</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+            <a class="vx-card" href="https://youtu.be/lZLclr1VkNo" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ24（解説動画）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/lZLclr1VkNo/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ24" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">VOL.24</span>
+                <span class="vx-card-title">教育DX推進 豆研修シリーズ24</span>
+                <span class="vx-card-sub">解説動画</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+            <a class="vx-card" href="https://youtu.be/7Pts7L_oOhQ" target="_blank" rel="noopener noreferrer" title="初めてのCanvaログイン方法（教育DX推進 豆研修シリーズ ver2）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/7Pts7L_oOhQ/hqdefault.jpg" alt="初めてのCanvaログイン方法" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">Canva</span>
+                <span class="vx-card-title">初めてのCanvaログイン方法</span>
+                <span class="vx-card-sub">教育DX推進 豆研修シリーズ ver2</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+            <a class="vx-card" href="https://youtu.be/C99arNxtfWs" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ30（解説動画）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/C99arNxtfWs/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ30" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">VOL.30</span>
+                <span class="vx-card-title">教育DX推進 豆研修シリーズ30</span>
+                <span class="vx-card-sub">解説動画</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+            <a class="vx-card" href="https://youtu.be/NsxRhH20I0Q" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ29（解説動画）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/NsxRhH20I0Q/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ29" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">VOL.29</span>
+                <span class="vx-card-title">教育DX推進 豆研修シリーズ29</span>
+                <span class="vx-card-sub">解説動画</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+            <a class="vx-card" href="https://youtu.be/fWVyuAT4QO8" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ28（解説動画）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/fWVyuAT4QO8/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ28" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">VOL.28</span>
+                <span class="vx-card-title">教育DX推進 豆研修シリーズ28</span>
+                <span class="vx-card-sub">解説動画</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+            <a class="vx-card" href="https://youtu.be/Ayau7-FzyEc" target="_blank" rel="noopener noreferrer" title="教育DX推進 豆研修シリーズ3（解説動画）をYouTubeで見る">
+              <span class="vx-thumb">
+                <img src="https://i.ytimg.com/vi/Ayau7-FzyEc/hqdefault.jpg" alt="教育DX推進 豆研修シリーズ3" loading="lazy" onerror="this.style.display='none'">
+                <span class="vx-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 20 12 8 19 8 5"/></svg></span></span>
+              </span>
+              <span class="vx-card-body">
+                <span class="vx-tag">VOL.3</span>
+                <span class="vx-card-title">教育DX推進 豆研修シリーズ3</span>
+                <span class="vx-card-sub">解説動画</span>
+                <span class="vx-card-cta">動画を見る ▶</span>
+              </span>
+            </a>
+      </div>
+
+      <p class="vx-more"><a href="#materials">動画対応テキストを探す →</a></p>
+    </div>
+  </section>
+
+  <!-- プロンプト集（変更なし） -->
+  <section class="section-features">
     <div class="container">
       <div class="features-grid">
-        <div class="feature-box">
-          <div class="feature-icon-wrapper" style="background: #EEF2FF; color: #4F46E5; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-          </div>
-          <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;">豆研修テキストの解説動画</h3>
-          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">テキストの内容を動画でサクッと視聴。空き時間にスマホからでも視聴できる解説ショートムービー集です。</p>
-          <a href="#materials" style="color: var(--primary); font-weight: 700; font-size: 0.875rem;">動画対応テキストを探す →</a>
-        </div>
-
         <div class="feature-box" id="prompts">
           <div class="feature-icon-wrapper" style="background: #ECFDF5; color: #059669; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -1172,16 +1392,84 @@
           <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">コピペしてそのまま使える「通知表所見の推敲」「授業指導案の素案」「保護者会だより」等の実践テンプレートです。</p>
           <a href="#materials" style="color: var(--primary); font-weight: 700; font-size: 0.875rem;">プロンプトテキストを見る →</a>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="feature-box" id="apps">
-          <div class="feature-icon-wrapper" style="background: #FEF3C7; color: #D97706; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          </div>
-          <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;">校務につかえるアプリ集</h3>
-          <p style="font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">Canva、Googleフォーム（GAS）、NotebookLM、Geminiなど、学校現場の生産性を高めるおすすめツール連携ガイドです。</p>
-          <a href="#materials" style="color: var(--primary); font-weight: 700; font-size: 0.875rem;">アプリ活用テキストを見る →</a>
+  <!-- ===== 校務につかえるアプリ集 ===== -->
+  <section class="ax-section" id="apps">
+    <div class="container">
+      <div class="section-header-band ax-band">
+        <div class="section-header-text">
+          <h2>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            校務につかえるアプリ集
+          </h2>
+          <p>ブラウザで開くだけですぐ使えるWebアプリ集。校務や授業準備の「ちょっと面倒」を、すぐ解決します。</p>
+        </div>
+        <div>
+          <span class="vx-band-badge">🧰 全6アプリ</span>
         </div>
       </div>
+
+      <div class="ax-grid">
+        <a class="ax-card" href="https://blueskysite0-wq.github.io/bunkatuketugou2/" target="_blank" rel="noopener noreferrer" title="PDF分割・結合ソフトを開く">
+          <span class="ax-icon" style="background: #EEF2FF; color: #4F46E5;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          </span>
+          <span class="ax-tag">PDF</span>
+          <span class="ax-name">PDF分割・結合ソフト</span>
+          <span class="ax-desc">PDFをページごとに分けたり、複数のPDFを1つにまとめたりできます。</span>
+          <span class="ax-cta">アプリを開く ↗</span>
+        </a>
+        <a class="ax-card" href="https://blueskysite0-wq.github.io/pdfwarituke/" target="_blank" rel="noopener noreferrer" title="PDF割付ソフトを開く">
+          <span class="ax-icon" style="background: #FEF3C7; color: #D97706;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+          </span>
+          <span class="ax-tag">PDF</span>
+          <span class="ax-name">PDF割付ソフト</span>
+          <span class="ax-desc">PDFのページを1枚の用紙に割り付けて、印刷用に整えます。</span>
+          <span class="ax-cta">アプリを開く ↗</span>
+        </a>
+        <a class="ax-card" href="https://blueskysite0-wq.github.io/codenew/" target="_blank" rel="noopener noreferrer" title="2次元コード生成ソフトを開く">
+          <span class="ax-icon" style="background: #ECFDF5; color: #059669;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="14" y2="14.01"/><line x1="18" y1="14" x2="21" y2="14"/><line x1="14" y1="18" x2="14" y2="21"/><line x1="18" y1="18" x2="21" y2="21"/></svg>
+          </span>
+          <span class="ax-tag">QRコード</span>
+          <span class="ax-name">2次元コード生成ソフト</span>
+          <span class="ax-desc">URLなどから2次元コード(QRコード)をすばやく作成できます。</span>
+          <span class="ax-cta">アプリを開く ↗</span>
+        </a>
+        <a class="ax-card" href="https://blueskysite0-wq.github.io/pdfpnghenkan/" target="_blank" rel="noopener noreferrer" title="PDF→PNG変換ソフトを開く">
+          <span class="ax-icon" style="background: #FFF7ED; color: #EA580C;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </span>
+          <span class="ax-tag">画像変換</span>
+          <span class="ax-name">PDF→PNG変換ソフト</span>
+          <span class="ax-desc">PDFのページを画像(PNG)に変換して、掲示物や資料づくりに使えます。</span>
+          <span class="ax-cta">アプリを開く ↗</span>
+        </a>
+        <a class="ax-card" href="https://singular-cheesecake-c917c9.netlify.app/" target="_blank" rel="noopener noreferrer" title="タイピングソフトを開く">
+          <span class="ax-icon" style="background: #EFF6FF; color: #2563EB;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6" y2="10.01"/><line x1="10" y1="10" x2="10" y2="10.01"/><line x1="14" y1="10" x2="14" y2="10.01"/><line x1="18" y1="10" x2="18" y2="10.01"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+          </span>
+          <span class="ax-tag">児童生徒向け</span>
+          <span class="ax-name">タイピングソフト</span>
+          <span class="ax-desc">児童生徒のタイピング練習に使えるソフトです。</span>
+          <span class="ax-cta">アプリを開く ↗</span>
+        </a>
+        <a class="ax-card" href="https://starlit-youtiao-f5a9e5.netlify.app/" target="_blank" rel="noopener noreferrer" title="時計クイズを開く">
+          <span class="ax-icon" style="background: #FDF2F8; color: #DB2777;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </span>
+          <span class="ax-tag">児童生徒向け</span>
+          <span class="ax-name">時計クイズ</span>
+          <span class="ax-desc">時計の読み方を、クイズ形式で楽しく練習できます。</span>
+          <span class="ax-cta">アプリを開く ↗</span>
+        </a>
+      </div>
+
+      <p class="vx-more"><a href="#materials">Canva・GAS・NotebookLMなどの活用テキストはこちら →</a></p>
     </div>
   </section>
 
@@ -1234,7 +1522,7 @@
             印刷する
           </button>
           <a href="index2.html" class="btn btn-outline" style="border-color: #EA580C; color: #EA580C;">
-            今日のお話全21話を見る ↗
+            今日のお話ポスター一覧を見る ↗
           </a>
         </div>
       </div>
@@ -1301,60 +1589,53 @@
       });
     }
 
-    // Automatically resolve today's story or fall back to the most recent one
+    // kyounoohanasi フォルダ内の画像を探す（png / jpg / jpeg、small版があればサムネイルに使用）
+    async function findPosterImages(id) {
+      const exts = ['png', 'jpg', 'jpeg'];
+      let large = "";
+      let small = "";
+      for (const ext of exts) {
+        if (await checkImageExists(`kyounoohanasi/${id}.${ext}`)) { large = `kyounoohanasi/${id}.${ext}`; break; }
+      }
+      for (const ext of exts) {
+        if (await checkImageExists(`kyounoohanasi/${id}small.${ext}`)) { small = `kyounoohanasi/${id}small.${ext}`; break; }
+      }
+      if (!large && !small) return null;
+      return { large: large || small, small: small || large };
+    }
+
+    // 今日の画像を優先し、無ければ直近（最大14日前まで）で画像のある最新日を自動表示
     async function autoSyncDailyStory() {
       const now = new Date();
-      const curMonth = (now.getMonth() + 1).toString().padStart(2, '0');
-      const curDay = now.getDate().toString().padStart(2, '0');
-      const todayId = `${curMonth}${curDay}`;
-
-      let activeStory = null;
-      let targetLargeImg = "";
-      let targetSmallImg = "";
-
-      // Check if matched in registry
-      const matched = knownStories.find(s => s.id === todayId);
-
-      // Check if today's image exists on server
-      const possibleLargeJpg = `kyounoohanasi/${todayId}.jpg`;
-      const possibleLargePng = `kyounoohanasi/${todayId}.png`;
-      const possibleSmall = `kyounoohanasi/${todayId}small.png`;
-
-      if (await checkImageExists(possibleLargePng)) {
-        targetLargeImg = possibleLargePng;
-        targetSmallImg = (await checkImageExists(possibleSmall)) ? possibleSmall : possibleLargePng;
-        activeStory = matched || {
-          id: todayId,
-          dateLabel: `${parseInt(curMonth)}月${parseInt(curDay)}日のお話`,
-          title: `今日のお話（${parseInt(curMonth)}月${parseInt(curDay)}日バージョン）`,
-          body: `本日の「朝の会のお話」ポスターが公開されました！画像をクリックして教室掲示や印刷にご活用ください。`
-        };
-      } else if (await checkImageExists(possibleLargeJpg)) {
-        targetLargeImg = possibleLargeJpg;
-        targetSmallImg = (await checkImageExists(possibleSmall)) ? possibleSmall : possibleLargeJpg;
-        activeStory = matched || {
-          id: todayId,
-          dateLabel: `${parseInt(curMonth)}月${parseInt(curDay)}日のお話`,
-          title: `今日のお話（${parseInt(curMonth)}月${parseInt(curDay)}日バージョン）`,
-          body: `本日の「朝の会のお話」ポスターが公開されました！画像をクリックして教室掲示や印刷にご活用ください。`
-        };
+      const days = [];
+      for (let back = 0; back <= 14; back++) {
+        const d = new Date(now);
+        d.setDate(d.getDate() - back);
+        days.push({
+          id: String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0'),
+          month: d.getMonth() + 1,
+          day: d.getDate()
+        });
       }
 
-      // If today is not uploaded yet, use the latest registered story
-      if (!activeStory) {
-        activeStory = knownStories[0]; // 1113
-        targetLargeImg = `kyounoohanasi/${activeStory.id}.png`;
-        targetSmallImg = `kyounoohanasi/${activeStory.id}small.png`;
-      }
+      const results = await Promise.all(days.map(d => findPosterImages(d.id)));
+      const idx = results.findIndex(r => r !== null);
+      if (idx === -1) return; // 画像が1枚も無い場合はHTML内の初期表示のまま
 
-      // Apply to UI
-      document.getElementById("featuredDateText").textContent = activeStory.dateLabel || `${activeStory.month}月${activeStory.day}日のお話`;
-      document.getElementById("featuredStoryTitle").innerHTML = activeStory.title;
-      document.getElementById("featuredStoryBody").innerHTML = activeStory.body;
-      document.getElementById("featuredPosterImg").src = targetSmallImg;
-      document.getElementById("modalFullImg").src = targetLargeImg;
-      document.getElementById("btnDownloadFeatured").href = targetLargeImg;
-      document.getElementById("modalStoryHeading").innerHTML = activeStory.title;
+      const target = days[idx];
+      const imgs = results[idx];
+      const matched = knownStories.find(s => s.id === target.id);
+      const dateLabel = `${target.month}月${target.day}日のお話`;
+      const title = matched ? matched.title : `${target.month}月${target.day}日のお話`;
+      const body = matched ? matched.body : `「朝の会のお話」ポスターが公開されました！画像をクリックして拡大し、教室掲示や印刷にご活用ください。`;
+
+      document.getElementById("featuredDateText").textContent = dateLabel;
+      document.getElementById("featuredStoryTitle").innerHTML = title;
+      document.getElementById("featuredStoryBody").innerHTML = body;
+      document.getElementById("featuredPosterImg").src = imgs.small;
+      document.getElementById("modalFullImg").src = imgs.large;
+      document.getElementById("btnDownloadFeatured").href = imgs.large;
+      document.getElementById("modalStoryHeading").innerHTML = title;
     }
 
     // -------------------------------------------------------------------------
