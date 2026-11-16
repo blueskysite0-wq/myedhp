@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="子どもの心に火をつけるお話ポスターギャラリー。夢・行動・やさしさをテーマにした、朝の会や学級指導で使えるメッセージポスター集。">
+  <title>心に火をつけるお話 ポスターギャラリー | 先生のためのポータルサイト</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&family=Yuji+Boku&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS Variables & Global Reset
+       ========================================================================== */
+    :root {
+      --primary: #1E3A8A;           /* 深みのあるインディゴネイビー */
+      --primary-light: #3B82F6;
+      --primary-soft: #EFF6FF;
+      --accent: #EA580C;            /* 朝の温かみを感じるオレンジ */
+      --accent-soft: #FFF7ED;
+      --teal: #0D9488;
+      --teal-soft: #F0FDFA;
+      --surface: #FFFFFF;
+      --background: #F8FAFC;
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-subtle: #94A3B8;
+      --border: #E2E8F0;
+      --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.12), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+      --shadow-hover: 0 20px 25px -5px rgba(30, 58, 138, 0.15), 0 10px 10px -5px rgba(30, 58, 138, 0.04);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      color: var(--text-main);
+      background-color: var(--background);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       Top Navigation Bar
+       ========================================================================== */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .top-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--primary);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .back-btn:hover {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      transform: translateX(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-brand-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-brand-title span {
+      color: var(--accent);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      background: var(--accent-soft);
+      padding: 2px 10px;
+      border-radius: 100px;
+    }
+
+    /* ==========================================================================
+       Hero Section
+       ========================================================================== */
+    .hero-gallery {
+      position: relative;
+      background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 38%, #FDBA74 100%);
+      padding: 56px 0 64px;
+      border-bottom: 1px solid #FB923C;
+      overflow: hidden;
+    }
+
+    .hero-gallery::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.22) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-gallery-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #F59E0B;
+      border-radius: 100px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #B45309;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
+    }
+
+    .hero-title-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .hero-title-main {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #7C2D12;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(245, 158, 11, 0.15);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title-main::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 10%;
+      width: 80%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #DC2626, #F59E0B, transparent);
+      border-radius: 2px;
+    }
+
+    .hero-title-sub {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #9A3412;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-lead {
+      font-size: 1rem;
+      color: #78350F;
+      line-height: 1.7;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .hero-stats-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 10px 24px;
+      border-radius: 100px;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      font-size: 0.875rem;
+      color: #78350F;
+      font-weight: 600;
+    }
+
+    .hero-stats-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-stats-item strong {
+      font-size: 1.125rem;
+      color: #EA580C;
+    }
+
+    /* ==========================================================================
+       Controls & Gallery Grid
+       ========================================================================== */
+    .gallery-section {
+      padding: 48px 0 88px;
+    }
+
+    .gallery-controls {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      padding: 8px 18px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      border-color: #F59E0B;
+      color: #B45309;
+    }
+
+    .tab-btn.active {
+      background: #EA580C;
+      color: #FFFFFF;
+      border-color: #EA580C;
+      box-shadow: 0 4px 10px rgba(234, 88, 12, 0.25);
+    }
+
+    .tab-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .tab-btn.active .tab-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+    }
+
+    .search-sort-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      width: 260px;
+    }
+
+    .search-input-wrap input {
+      width: 100%;
+      padding: 9px 14px 9px 38px;
+      font-size: 0.875rem;
+      font-family: inherit;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--background);
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+
+    .search-input-wrap input:focus {
+      outline: none;
+      border-color: #F59E0B;
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+    }
+
+    .search-input-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-subtle);
+      pointer-events: none;
+    }
+
+    .sort-select {
+      padding: 9px 16px;
+      font-size: 0.875rem;
+      font-family: inherit;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--background);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+
+    .sort-select:focus {
+      outline: none;
+      border-color: #F59E0B;
+    }
+
+    /* Grid Layout: 4 Columns on Desktop */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    @media (max-width: 1100px) {
+      .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .hero-title-main {
+        font-size: 2.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Poster Card Style */
+    .story-poster-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .story-poster-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: #FBBF24;
+    }
+
+    .card-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1.414; /* A4ポスター比率 */
+      background: #F1F5F9;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.4s ease;
+    }
+
+    .story-poster-card:hover .card-media img {
+      transform: scale(1.05);
+    }
+
+    /* Overlay on Hover */
+    .card-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.3) 50%, transparent 100%);
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+      transition: var(--transition);
+    }
+
+    .story-poster-card:hover .card-hover-overlay {
+      opacity: 1;
+    }
+
+    .overlay-zoom-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px 14px;
+      background: #FFFFFF;
+      color: #B45309;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 800;
+      box-shadow: var(--shadow-md);
+    }
+
+    .date-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #EA580C;
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      z-index: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .latest-pill {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #10B981;
+      color: #FFFFFF;
+      font-size: 0.6875rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 100px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    /* Card Details */
+    .card-body {
+      padding: 16px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+      background: var(--surface);
+    }
+
+    .card-date-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #D97706;
+      margin-bottom: 4px;
+    }
+
+    .card-story-title {
+      font-size: 0.9375rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.45;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.7em;
+    }
+
+    .card-story-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .card-footer-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid #F1F5F9;
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+    }
+
+    .action-link-text {
+      color: #EA580C;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ==========================================================================
+       Lightbox / Modal for High-Res View
+       ========================================================================== */
+    .lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .lightbox-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-window {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      max-width: 1000px;
+      width: 100%;
+      max-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      transform: scale(0.96);
+      transition: var(--transition);
+    }
+
+    .lightbox-backdrop.active .lightbox-window {
+      transform: scale(1);
+    }
+
+    @media (max-width: 900px) {
+      .lightbox-window {
+        grid-template-columns: 1fr;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+    }
+
+    .lightbox-image-pane {
+      background: #0B0F19;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      min-height: 480px;
+    }
+
+    .lightbox-image-pane img {
+      max-height: 80vh;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .lightbox-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .btn-prev { left: 16px; }
+    .btn-next { right: 16px; }
+
+    .lightbox-detail-pane {
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+      background: #FFFFFF;
+    }
+
+    .lightbox-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      background: rgba(15, 23, 42, 0.08);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 20;
+    }
+
+    .lightbox-close-btn:hover {
+      background: rgba(15, 23, 42, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .modal-story-date {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--accent-soft);
+      color: #C2410C;
+      font-size: 0.8125rem;
+      font-weight: 800;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .modal-story-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin-bottom: 14px;
+    }
+
+    .modal-story-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      background: var(--background);
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .modal-action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      width: 100%;
+    }
+
+    .btn-action-primary {
+      background: #EA580C;
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px rgba(234, 88, 12, 0.25);
+    }
+
+    .btn-action-primary:hover {
+      background: #C2410C;
+      transform: translateY(-2px);
+    }
+
+    .btn-action-secondary {
+      background: var(--background);
+      border: 1.5px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-action-secondary:hover {
+      background: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+
+    /* Footer */
+    .gallery-footer {
+      background: #0F172A;
+      color: #94A3B8;
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.875rem;
+      border-top: 1px solid #1E293B;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation -->
+  <header class="top-nav">
+    <div class="container">
+      <div class="top-nav-inner">
+        <a href="index.html" class="back-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          ポータルサイトトップへ戻る
+        </a>
+        <div class="nav-brand-title">
+          心に火をつけるお話ポスターギャラリー
+          <span id="navCount">アーカイブ</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero-gallery">
+    <div class="container">
+      <div class="hero-gallery-content">
+        <div class="hero-badge">
+          🔥 子どもの心に火をつける
+        </div>
+        <div class="hero-title-group">
+          <h1 class="hero-title-main">心に火をつけるお話</h1>
+          <span class="hero-title-sub">～ 夢・行動・やさしさのメッセージ ～</span>
+        </div>
+        <p class="hero-lead">
+          夢に向かう一歩、つらい時に踏ん張る力、人を思いやる温かさ。子どもたちの心に火をつけるお話をポスターにしました。<br>
+          サムネイルをクリックすると、印刷・教室掲示にそのまま使える高解像度ポスターが拡大表示されます。
+        </p>
+        <div class="hero-stats-row">
+          <div class="hero-stats-item">
+            <span>収録数:</span>
+            <strong id="statCount">9</strong> <span>話</span>
+          </div>
+          <div class="hero-stats-item">
+            <span>使い方:</span>
+            <strong>朝の会・学級指導・教室掲示</strong>
+          </div>
+          <div class="hero-stats-item">
+            <span>更新:</span>
+            <strong style="color: #10B981;">随時追加</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Gallery Section -->
+  <main class="gallery-section">
+    <div class="container">
+      
+      <!-- Controls Bar -->
+      <div class="gallery-controls">
+        <div class="filter-tabs" id="filterTabs"><span style="font-weight:700; color: var(--text-muted); font-size: 0.9375rem;">🔥 ポスターを選んで、教室で紹介しましょう</span></div>
+
+        <!-- Search & Sort -->
+        <div class="search-sort-wrap">
+          <div class="search-input-wrap">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchInput" placeholder="タイトルやキーワードで検索...">
+          </div>
+          <select class="sort-select" id="sortSelect">
+            <option value="newest">新しい順（新しい話から）</option>
+            <option value="oldest">番号順（第1話から）</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="cards-grid" id="cardsGrid">
+        <!-- Rendered via JavaScript -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="gallery-footer">
+    <div class="container">
+      <p style="margin-bottom: 8px;">先生のためのポータルサイト | 心に火をつけるお話</p>
+      <p style="font-size: 0.8125rem; color: #64748B;">&copy; 2026 先生のためのポータルサイト. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal for Full-Size Poster View -->
+  <div class="lightbox-backdrop" id="lightboxModal">
+    <div class="lightbox-window">
+      <button class="lightbox-close-btn" id="closeLightbox" title="閉じる (Esc)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <!-- Image Area with Previous / Next Arrows -->
+      <div class="lightbox-image-pane">
+        <button class="lightbox-nav-btn btn-prev" id="prevStoryBtn" title="前のお話 (←)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <img id="lightboxImg" src="" alt="高解像度ポスター">
+        <button class="lightbox-nav-btn btn-next" id="nextStoryBtn" title="次のお話 (→)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <!-- Detail Area -->
+      <div class="lightbox-detail-pane">
+        <div>
+          <span class="modal-story-date" id="modalStoryDate">第1話</span>
+          <h2 class="modal-story-title" id="modalStoryTitle">タイトル</h2>
+          <div class="modal-story-desc" id="modalStoryDesc">説明文</div>
+        </div>
+
+        <div class="modal-action-buttons">
+          <a id="btnDownloadPoster" href="#" target="_blank" download class="btn-action btn-action-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            高解像度画像をダウンロード
+          </a>
+          <button class="btn-action btn-action-secondary" onclick="window.print()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            ポスターを印刷する
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript: Dataset & Interactive Logic -->
+  <script>
+    // =========================================================================
+    // 心に火をつけるお話：データ（画像は yume フォルダ内の yume1.png〜yume9.png）
+    //   ・新しい画像は yume11.png, yume12.png ... と保存するだけで自動追加されます
+    //   ・題名や説明文を付けたい場合は、下の storyMeta に1件追記してください
+    // =========================================================================
+    // 各話の題名・説明文（番号 → 内容）。新しい話を追加するときはここに1件足してください。
+    const storyMeta = {
+      1:  { title: "【夢】「夢は逃げない。逃げるのはいつも自分だ。」（高橋歩）", desc: "苦しくて「無理かもしれない」と思ったときこそ、夢は君が追いつくのを待っています。自分さえ逃げなければ、夢との距離は必ず縮まります。" },
+      2:  { title: "【行動】「『できない』の正体は、まだ『やっていない』だけだ。」", desc: "「どうせできない」は、まだスタートラインに立っていないだけ。今日、新しい一歩を踏み出してみようと伝えるお話。" },
+      3:  { title: "【行動】「やる気があるからやるんじゃない。やっているからやる気が湧いてくるのだ。」", desc: "やる気を待たずに、まずは「5分だけ」「1行だけ」。その小さな動きが、君の心エンジンをかけてくれます。" },
+      4:  { title: "小さいことを重ねることが、とんでもないところに行くただひとつの道。（イチロー）", desc: "毎日の素振りを欠かさなかったイチロー選手のように、今日の小さな努力が、君の大きな夢をつくります。" },
+      5:  { title: "夢なき者に理想なし、理想なき者に計画なし、計画なき者に実行なし、実行なき者に成功なし。故に、夢なき者に成功なし。（吉田松陰）", desc: "夢→理想→計画→実行→成功。すべての始まりは「夢を持つこと」。さあ、君はどんな夢を描きますか？" },
+      6:  { title: "夢は逃げない。逃げるのはいつも自分だ。（高橋歩）", desc: "壁にぶつかって苦しいのは、夢に向かって真っ直ぐ走っている証拠。前を向いて歩き続ける限り、夢は決して君を裏切りません。" },
+      7:  { title: "「辛い（つらい）」に一本足すと…「幸（しあわせ）」", desc: "つらいときは、「もうすぐ幸せになる途中だ！」と思い出してください。一歩の踏ん張りや誰かの優しさが、大きな幸せに変わります。" },
+      8:  { title: "「優しい」という漢字の温かさ", desc: "「優」は、人（にんべん）に憂（うれえる）。人の悲しみや痛みのそばに寄り添い、一緒に心配してあげる人という意味です。" },
+      9:  { title: "そのままの君で100点満点", desc: "ゾウにはゾウの、チーターにはチーターの素晴らしさがある。誰かと比べなくても、君は君らしく生きているだけで100点満点です。" },
+      10: { title: "ロケットが一番エネルギーを使う瞬間", desc: "ロケットが一番大きなエネルギーを使うのは、地面を離れる最初の数メートル。最初の一歩が一番重いけれど、踏み出せば挑戦はもう半分成功です。" }
+    };
+
+    // yume1.png〜yume9.png は確定登録。yume10 以降は画像を検出して自動追加（拡張子は png / jpg / jpeg に対応）
+    const storiesData = Array.from({ length: 9 }, (_, i) => i + 1).map(n => ({
+      id: `yume${n}`,
+      sortKey: n,
+      label: `第${n}話`,
+      title: storyMeta[n].title,
+      desc: storyMeta[n].desc,
+      largeImg: `yume/yume${n}.png`,
+      thumbImg: `yume/yume${n}.png`,
+      isLatest: false
+    }));
+
+    // =========================================================================
+    // UI Logic
+    // =========================================================================
+    let searchQuery = "";
+    let sortOrder = "newest";
+    let currentStoryIndex = 0;
+    let currentlyFilteredStories = [...storiesData];
+
+    const cardsGrid = document.getElementById("cardsGrid");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+
+    const lightboxModal = document.getElementById("lightboxModal");
+    const closeLightbox = document.getElementById("closeLightbox");
+    const prevStoryBtn = document.getElementById("prevStoryBtn");
+    const nextStoryBtn = document.getElementById("nextStoryBtn");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const modalStoryDate = document.getElementById("modalStoryDate");
+    const modalStoryTitle = document.getElementById("modalStoryTitle");
+    const modalStoryDesc = document.getElementById("modalStoryDesc");
+    const btnDownloadPoster = document.getElementById("btnDownloadPoster");
+
+    function esc(t) {
+      return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function renderCards() {
+      currentlyFilteredStories = [...storiesData];
+
+      if (searchQuery.trim() !== "") {
+        const q = searchQuery.toLowerCase().trim();
+        currentlyFilteredStories = currentlyFilteredStories.filter(item =>
+          item.title.toLowerCase().includes(q) ||
+          item.desc.toLowerCase().includes(q) ||
+          item.label.toLowerCase().includes(q)
+        );
+      }
+
+      currentlyFilteredStories.sort((a, b) =>
+        sortOrder === "newest" ? (b.sortKey - a.sortKey) : (a.sortKey - b.sortKey)
+      );
+
+      if (currentlyFilteredStories.length === 0) {
+        cardsGrid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #fff; border-radius: 12px; border: 1px dashed #cbd5e1;">
+            <p style="font-size: 1.125rem; font-weight: 700; color: #64748B;">該当するお話が見つかりませんでした。</p>
+            <p style="font-size: 0.875rem; color: #94A3B8; margin-top: 6px;">検索キーワードを変更してください。</p>
+          </div>
+        `;
+        return;
+      }
+
+      cardsGrid.innerHTML = currentlyFilteredStories.map((item, index) => `
+          <article class="story-poster-card" onclick="openLightboxByIndex(${index})" title="${esc(item.title)} を拡大表示">
+            <div class="card-media">
+              <span class="date-badge">${item.label}</span>
+              ${item.isLatest ? '<span class="latest-pill">最新！</span>' : ''}
+              <img src="${item.thumbImg}" alt="${esc(item.title)}" loading="lazy">
+              <div class="card-hover-overlay">
+                <span class="overlay-zoom-pill">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                  大きく見る（拡大表示）
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="card-date-label">${item.label}</div>
+                <h3 class="card-story-title">${esc(item.title)}</h3>
+                <p class="card-story-desc">${esc(item.desc)}</p>
+              </div>
+              <div class="card-footer-action">
+                <span>ポスター表示</span>
+                <span class="action-link-text">
+                  拡大する
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+        `).join("");
+    }
+
+    // Lightbox
+    function openLightboxByIndex(index) {
+      if (index < 0 || index >= currentlyFilteredStories.length) return;
+      currentStoryIndex = index;
+      const story = currentlyFilteredStories[index];
+
+      lightboxImg.src = story.largeImg;
+      modalStoryDate.textContent = story.label;
+      modalStoryTitle.textContent = story.title;
+      modalStoryDesc.textContent = story.desc;
+      btnDownloadPoster.href = story.largeImg;
+
+      lightboxModal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightboxModal() {
+      lightboxModal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    function nextStory() {
+      let i = currentStoryIndex + 1;
+      if (i >= currentlyFilteredStories.length) i = 0;
+      openLightboxByIndex(i);
+    }
+
+    function prevStory() {
+      let i = currentStoryIndex - 1;
+      if (i < 0) i = currentlyFilteredStories.length - 1;
+      openLightboxByIndex(i);
+    }
+
+    closeLightbox.addEventListener("click", closeLightboxModal);
+    nextStoryBtn.addEventListener("click", (e) => { e.stopPropagation(); nextStory(); });
+    prevStoryBtn.addEventListener("click", (e) => { e.stopPropagation(); prevStory(); });
+    lightboxModal.addEventListener("click", (e) => {
+      if (e.target === lightboxModal) closeLightboxModal();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (!lightboxModal.classList.contains("active")) return;
+      if (e.key === "Escape") closeLightboxModal();
+      if (e.key === "ArrowLeft") prevStory();
+      if (e.key === "ArrowRight") nextStory();
+    });
+
+    searchInput.addEventListener("input", (e) => { searchQuery = e.target.value; renderCards(); });
+    sortSelect.addEventListener("change", (e) => { sortOrder = e.target.value; renderCards(); });
+
+    function updateStats() {
+      const maxKey = Math.max(...storiesData.map(s => s.sortKey));
+      storiesData.forEach(s => { s.isLatest = (s.sortKey === maxKey); });
+      document.getElementById("statCount").textContent = storiesData.length;
+      document.getElementById("navCount").textContent = `全${storiesData.length}話 アーカイブ`;
+    }
+
+    function refreshAll() {
+      updateStats();
+      renderCards();
+    }
+
+    // =========================================================================
+    // yume フォルダの新しい画像（yume10.png〜）を自動で検出して追加
+    // =========================================================================
+    function imageExists(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
+
+    async function findFirstExisting(base) {
+      for (const ext of ['png', 'jpg', 'jpeg']) {
+        const url = `${base}.${ext}`;
+        if (await imageExists(url)) return url;
+      }
+      return "";
+    }
+
+    async function probeNewStories() {
+      const MAX_NUM = 60;
+      const known = new Set(storiesData.map(s => s.sortKey));
+      const nums = [];
+      for (let n = 1; n <= MAX_NUM; n++) if (!known.has(n)) nums.push(n);
+
+      const found = (await Promise.all(nums.map(async (n) => {
+        const url = await findFirstExisting(`yume/yume${n}`);
+        if (!url) return null;
+        return {
+          id: `yume${n}`, sortKey: n, label: `第${n}話`,
+          title: (storyMeta[n] && storyMeta[n].title) || `心に火をつけるお話 第${n}話`,
+          desc: (storyMeta[n] && storyMeta[n].desc) || `心に火をつけるお話 第${n}話のポスターです。画像をクリックして拡大表示や印刷ができます。`,
+          largeImg: url, thumbImg: url, isLatest: false
+        };
+      }))).filter(Boolean);
+
+      if (found.length > 0) {
+        storiesData.push(...found);
+        refreshAll();
+      }
+    }
+
+    refreshAll();
+    probeNewStories();
+  </script>
+</body>
+</html>
