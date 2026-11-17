@@ -605,11 +605,11 @@
     .lightbox-window {
       background: var(--surface);
       border-radius: var(--radius-lg);
-      max-width: 1000px;
+      max-width: 1060px;
       width: 100%;
-      max-height: 92vh;
+      max-height: 94vh;
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 400px;
       overflow: hidden;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       position: relative;
@@ -730,11 +730,103 @@
       font-size: 0.875rem;
       color: var(--text-muted);
       line-height: 1.7;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       background: var(--background);
-      padding: 16px;
+      padding: 14px 16px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
+    }
+
+    /* Speech Script Section in Modal */
+    .modal-speech-section {
+      margin-bottom: 20px;
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .speech-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #CBD5E1;
+    }
+
+    .speech-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #1E3A8A;
+      background: #EFF6FF;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      border: 1px solid #BFDBFE;
+    }
+
+    .speech-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #334155;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      padding: 4px 9px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .speech-copy-btn:hover {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1E3A8A;
+    }
+
+    .speech-body-container {
+      max-height: 240px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .speech-body-container::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .speech-body-container::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+
+    .speech-body-text {
+      font-size: 0.875rem;
+      line-height: 1.85;
+      color: #1E293B;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: inherit;
+    }
+
+    /* Card Badge for Speech Script */
+    .card-speech-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: #1E3A8A;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-top: 6px;
     }
 
     .modal-action-buttons {
@@ -903,6 +995,23 @@
           <span class="modal-story-date" id="modalStoryDate">第1話</span>
           <h2 class="modal-story-title" id="modalStoryTitle">タイトル</h2>
           <div class="modal-story-desc" id="modalStoryDesc">説明文</div>
+
+          <!-- スピーチ原稿エリア（yumespeechフォルダのテキストが存在する場合に自動表示） -->
+          <div class="modal-speech-section" id="modalSpeechSection" style="display: none;">
+            <div class="speech-header">
+              <span class="speech-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                朝の会・スピーチ原稿
+              </span>
+              <button class="speech-copy-btn" id="btnCopySpeech" type="button" title="スピーチ原稿をクリップボードにコピー">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                原稿をコピー
+              </button>
+            </div>
+            <div class="speech-body-container">
+              <div class="speech-body-text" id="modalSpeechContent"></div>
+            </div>
+          </div>
         </div>
 
         <div class="modal-action-buttons">
@@ -1022,6 +1131,12 @@
                 <div class="card-date-label">${item.label}</div>
                 <h3 class="card-story-title">${esc(item.title)}</h3>
                 <p class="card-story-desc">${esc(item.desc)}</p>
+                ${item.speechText ? `
+                  <div class="card-speech-badge">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                    スピーチ原稿あり
+                  </div>
+                ` : ''}
               </div>
               <div class="card-footer-action">
                 <span>ポスター表示</span>
@@ -1035,8 +1150,27 @@
         `).join("");
     }
 
+    // スピーチ原稿（yumespeech/yume13.text または yumespeech/yume13.txt）を自動取得
+    async function findSpeechText(id) {
+      const exts = ['text', 'txt'];
+      for (const ext of exts) {
+        try {
+          const res = await fetch(`yumespeech/${id}.${ext}`);
+          if (res.ok) {
+            const text = await res.text();
+            if (text && text.trim().length > 0) {
+              return text.trim();
+            }
+          }
+        } catch (e) {
+          // 読み込みエラーはスキップ
+        }
+      }
+      return "";
+    }
+
     // Lightbox
-    function openLightboxByIndex(index) {
+    async function openLightboxByIndex(index) {
       if (index < 0 || index >= currentlyFilteredStories.length) return;
       currentStoryIndex = index;
       const story = currentlyFilteredStories[index];
@@ -1046,6 +1180,24 @@
       modalStoryTitle.textContent = story.title;
       modalStoryDesc.textContent = story.desc;
       btnDownloadPoster.href = story.largeImg;
+
+      // スピーチ原稿の表示制御
+      const speechSection = document.getElementById("modalSpeechSection");
+      const speechContent = document.getElementById("modalSpeechContent");
+      
+      if (story.speechText === undefined) {
+        story.speechText = await findSpeechText(story.id);
+        // カード一覧側にも反映
+        if (story.speechText) renderCards();
+      }
+
+      if (story.speechText) {
+        speechSection.style.display = "block";
+        speechContent.textContent = story.speechText;
+      } else {
+        speechSection.style.display = "none";
+        speechContent.textContent = "";
+      }
 
       lightboxModal.classList.add("active");
       document.body.style.overflow = "hidden";
@@ -1075,6 +1227,31 @@
       if (e.target === lightboxModal) closeLightboxModal();
     });
 
+    // スピーチ原稿のワンクリックコピー機能
+    const btnCopySpeech = document.getElementById("btnCopySpeech");
+    if (btnCopySpeech) {
+      btnCopySpeech.addEventListener("click", async () => {
+        const story = currentlyFilteredStories[currentStoryIndex];
+        if (!story || !story.speechText) return;
+        try {
+          await navigator.clipboard.writeText(story.speechText);
+          const originalHtml = btnCopySpeech.innerHTML;
+          btnCopySpeech.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> コピー完了！`;
+          btnCopySpeech.style.background = "#10B981";
+          btnCopySpeech.style.color = "#FFFFFF";
+          btnCopySpeech.style.borderColor = "#059669";
+          setTimeout(() => {
+            btnCopySpeech.innerHTML = originalHtml;
+            btnCopySpeech.style.background = "";
+            btnCopySpeech.style.color = "";
+            btnCopySpeech.style.borderColor = "";
+          }, 2000);
+        } catch (err) {
+          alert("スピーチ原稿:\n\n" + story.speechText);
+        }
+      });
+    }
+
     window.addEventListener("keydown", (e) => {
       if (!lightboxModal.classList.contains("active")) return;
       if (e.key === "Escape") closeLightboxModal();
@@ -1098,7 +1275,7 @@
     }
 
     // =========================================================================
-    // yume フォルダの新しい画像（yume10.png〜）を自動で検出して追加
+    // yume フォルダの新しい画像（yume10.png〜）と yumespeech フォルダを自動検出
     // =========================================================================
     function imageExists(url) {
       return new Promise((resolve) => {
@@ -1124,13 +1301,20 @@
       for (let n = 1; n <= MAX_NUM; n++) if (!known.has(n)) nums.push(n);
 
       const found = (await Promise.all(nums.map(async (n) => {
-        const url = await findFirstExisting(`yume/yume${n}`);
+        const id = `yume${n}`;
+        const url = await findFirstExisting(`yume/${id}`);
         if (!url) return null;
+        const speech = await findSpeechText(id);
         return {
-          id: `yume${n}`, sortKey: n, label: `第${n}話`,
+          id: id,
+          sortKey: n,
+          label: `第${n}話`,
           title: (storyMeta[n] && storyMeta[n].title) || `心に火をつけるお話 第${n}話`,
           desc: (storyMeta[n] && storyMeta[n].desc) || `心に火をつけるお話 第${n}話のポスターです。画像をクリックして拡大表示や印刷ができます。`,
-          largeImg: url, thumbImg: url, isLatest: false
+          largeImg: url,
+          thumbImg: url,
+          isLatest: false,
+          speechText: speech
         };
       }))).filter(Boolean);
 
@@ -1138,6 +1322,19 @@
         storiesData.push(...found);
         refreshAll();
       }
+
+      // 既存データ（1〜9話等）にも原稿があるかバックグラウンドでチェック
+      let hasUpdate = false;
+      for (const story of storiesData) {
+        if (story.speechText === undefined) {
+          const sp = await findSpeechText(story.id);
+          if (sp) {
+            story.speechText = sp;
+            hasUpdate = true;
+          }
+        }
+      }
+      if (hasUpdate) renderCards();
     }
 
     refreshAll();
