@@ -1150,9 +1150,9 @@
         `).join("");
     }
 
-    // スピーチ原稿（yumespeech/yume13.text または yumespeech/yume13.txt）を自動取得
+    // スピーチ原稿（yumespeech/yume13.txt を最優先で自動取得）
     async function findSpeechText(id) {
-      const exts = ['text', 'txt'];
+      const exts = ['txt', 'text'];
       for (const ext of exts) {
         try {
           const res = await fetch(`yumespeech/${id}.${ext}`);
