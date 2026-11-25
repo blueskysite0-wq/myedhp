@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="dashboard">
+  <meta name="design-style" content="briefing">
+  <title>次期学習指導要領準拠 情報活用能力・情報モラル教育ポータル＆公式教材リンク集</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Briefing style tokens */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+      --outline-control: #c8c4b8;
+      --outline-hover: #a8a397;
+
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      /* Tag & status surface tints */
+      --tag-gold-bg: #f5e6c4;
+      --tag-slate-bg: #e7f0f3;
+      --tag-pine-bg: #e6f2ec;
+      --tag-brick-bg: #fbeae8;
+      --shadow-toast: 0 8px 24px rgb(23 24 26 / 0.14);
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Fonts (Japanese primary + Briefing Latin pairings) */
+      --font-headline: 'Noto Serif JP', 'Source Serif 4', serif;
+      --font-body: 'Noto Sans JP', 'Plus Jakarta Sans', sans-serif;
+      --font-label: 'Geist Mono', 'Noto Sans JP', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* 3. Shared tokens */
+      --positive: #2b6e52;
+      --warning: #785008;
+      --focus: #1f4e5f;
+
+      /* Dashboard type scale */
+      --display-size: clamp(1.65rem, 1.35rem + 1.15vw, 2.25rem);
+      --headline-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    header { position: static !important; }
+
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing Dossier Header & Section Bar */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.6875rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: 0.04em;
+    }
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .quick-nav-btn {
+      background: transparent;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--secondary);
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .quick-nav-btn:hover {
+      background: var(--surface-container);
+      border-color: var(--outline-hover);
+    }
+
+    .title {
+      font-family: var(--font-headline);
+      font-size: var(--display-size);
+      font-weight: 700;
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.15;
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0;
+      max-width: 72ch;
+      line-height: 1.5;
+    }
+
+    /* KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .figure-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .index-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.04em;
+    }
+    .figure-label {
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface-variant);
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-size: clamp(1.5rem, 1.25rem + 0.8vw, 2rem);
+      font-weight: 700;
+      font-variant-numeric: lining-nums tabular-nums;
+      line-height: 1.1;
+      color: var(--on-surface);
+    }
+    .figure-value.is-gold { color: var(--tertiary); }
+    .figure-value.is-pine { color: var(--positive); }
+    .figure-value.is-slate { color: var(--secondary); }
+    .figure-sub {
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+
+    /* First-View Search & Filter Hub */
+    .search-hub {
+      background: var(--surface-container-low);
+      border: 1.5px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .search-controls-row {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.1fr) auto;
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .text-input, .select-input {
+      width: 100%;
+      height: 44px;
+      background: var(--background);
+      border: 1px solid var(--outline-control);
+      border-radius: var(--rounded);
+      padding: 0 var(--space-md);
+      font-size: var(--body-size);
+      transition: border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .text-input { padding-right: var(--space-xl); }
+    .select-input { padding-right: var(--space-xl); cursor: pointer; }
+    .text-input:hover, .select-input:hover {
+      border-color: var(--outline-hover);
+    }
+    .clear-input-btn {
+      position: absolute;
+      right: var(--space-xs);
+      height: 36px;
+      width: 36px;
+      border: 0;
+      background: transparent;
+      color: var(--on-surface-variant);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .clear-input-btn:hover { background: var(--surface-container); color: var(--on-surface); }
+    .clear-input-btn[hidden] { display: none; }
+
+    .control-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      border: 1px solid transparent;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+      white-space: nowrap;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover { background: var(--secondary); }
+    .btn-secondary {
+      background: var(--surface-container-low);
+      border-color: var(--outline-control);
+      color: var(--on-surface);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-container);
+      border-color: var(--outline-hover);
+    }
+    .btn-secondary.is-active {
+      background: var(--primary-container);
+      border-color: var(--outline);
+      color: var(--on-primary-container);
+    }
+    .btn-compact {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      font-size: var(--label-size);
+    }
+    .btn-copy {
+      background: var(--secondary);
+      color: var(--on-primary);
+    }
+    .btn-copy:hover { background: var(--primary); }
+    .btn-copy.is-copied {
+      background: var(--positive);
+      color: var(--on-primary);
+    }
+    .btn-danger-outline {
+      background: var(--surface-container-low);
+      border-color: var(--error);
+      color: var(--error);
+    }
+    .btn-danger-outline:hover {
+      background: var(--tag-brick-bg);
+    }
+
+    /* School Tabs & Category Chips */
+    .filter-row {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .filter-row-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface-variant);
+    }
+    .tab-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .school-tab {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--on-surface);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .school-tab:hover {
+      background: var(--surface-container);
+      border-color: var(--outline-hover);
+    }
+    .school-tab.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .tab-count {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      padding: 0 var(--space-xs);
+      border-radius: var(--badge-radius);
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+    }
+    .school-tab.is-active .tab-count {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .chip-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .cat-chip {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container);
+      border: 1px solid transparent;
+      border-radius: var(--rounded);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .cat-chip:hover {
+      background: var(--surface-container-high);
+    }
+    .cat-chip.is-active {
+      background: var(--tag-gold-bg);
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+    }
+
+    /* Results Toolbar */
+    .results-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .results-summary {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 0.875rem;
+    }
+    .results-count {
+      font-family: var(--font-label);
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .view-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Adaptive Resource Grid & Container Query */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .resource-card-wrap {
+      container-type: inline-size;
+      display: flex;
+    }
+    .resource-card {
+      width: 100%;
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      transition: border-color var(--dur-short) var(--ease-out);
+    }
+    .resource-card:hover {
+      border-color: var(--outline-hover);
+    }
+    .resource-card.is-copyright-spot {
+      border-left: 4px solid var(--data-2);
+    }
+    .card-top-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .tag {
+      font-size: var(--label-size);
+      font-weight: 600;
+      padding: 2px var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .tag-cat-portal { background: var(--tag-slate-bg); color: var(--secondary); }
+    .tag-cat-copyright { background: var(--tag-gold-bg); color: var(--tertiary); }
+    .tag-cat-sns { background: var(--tag-brick-bg); color: var(--error); }
+    .tag-cat-security { background: var(--tag-pine-bg); color: var(--positive); }
+    .tag-cat-literacy { background: var(--surface-container); color: var(--on-surface); }
+    .tag-cat-curriculum { background: var(--primary-container); color: var(--on-primary-container); }
+
+    .tag-format {
+      background: var(--surface-container);
+      color: var(--on-surface-variant);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      padding: 2px var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+
+    .card-title {
+      font-family: var(--font-headline);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .card-provider {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--secondary);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--on-surface);
+      margin: 0;
+      line-height: 1.55;
+    }
+    .card-levels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .level-chip {
+      font-size: var(--label-size);
+      padding: 1px var(--space-sm);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--badge-radius);
+      color: var(--on-surface-variant);
+      background: var(--background);
+    }
+    .card-footer {
+      border-top: 1px solid var(--outline-variant);
+      padding-top: var(--space-sm);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .url-box {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      word-break: break-all;
+      line-height: 1.4;
+    }
+    .card-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-sm);
+    }
+    @container (max-width: 319px) {
+      .card-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Table View */
+    .table-wrap {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow-x: auto;
+    }
+    .ref-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      text-align: left;
+    }
+    .ref-table th {
+      background: var(--surface-container);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface-variant);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--section-rule);
+      white-space: nowrap;
+    }
+    .ref-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      vertical-align: top;
+    }
+    .ref-table tr:last-child td { border-bottom: 0; }
+    .ref-table tbody tr:hover { background: var(--background); }
+
+    /* Section Headings */
+    .section-block {
+      margin-top: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 700;
+      letter-spacing: var(--heading-tracking);
+      line-height: 1.25;
+      margin: 0;
+    }
+    .section-lede {
+      color: var(--on-surface-variant);
+      margin: 0;
+      max-width: 70ch;
+    }
+
+    /* Copyright Asymmetric Layout */
+    .asymmetric-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .aside-title {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      margin: 0;
+    }
+    .checklist-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-sm);
+      align-items: start;
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--outline-variant);
+    }
+    .checklist-item:first-of-type { border-top: 0; padding-top: 0; }
+
+    /* Curriculum Progression & Framework Cards */
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .stage-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .stage-card.is-mid { border-top-color: var(--data-2); }
+    .stage-card.is-high { border-top-color: var(--data-3); }
+    .source-citation {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+      background: var(--tag-gold-bg);
+      padding: 2px var(--space-sm);
+      border-radius: var(--badge-radius);
+      display: inline-block;
+      align-self: flex-start;
+    }
+
+    .curriculum-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .pillar-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .pillar-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .pillar-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .pillar-title {
+      font-family: var(--font-headline);
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .cycle-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: var(--space-xs);
+    }
+    .cycle-step {
+      font-size: var(--label-size);
+      font-weight: 600;
+      background: var(--surface-container);
+      padding: 2px var(--space-sm);
+      border-radius: var(--badge-radius);
+    }
+
+    /* Chart Panel */
+    .chart-panel {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .chart-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .chart-box {
+      position: relative;
+      min-height: 290px;
+      width: 100%;
+    }
+
+    /* Saved Clips Workspace */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .clip-panel {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .clip-item {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      background: var(--background);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .clip-item-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .faq-list {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .faq-item {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .faq-q {
+      font-weight: 700;
+      color: var(--secondary);
+      margin: 0;
+    }
+    .faq-a {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--on-surface);
+    }
+
+    .empty-state {
+      background: var(--surface-container-low);
+      border: 1px dashed var(--outline-control);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      text-align: center;
+      display: grid;
+      gap: var(--space-sm);
+      justify-items: center;
+    }
+
+    .site-footer {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: var(--section-rule);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: var(--space-lg);
+      right: var(--space-lg);
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-toast);
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      z-index: 100;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .search-controls-row { grid-template-columns: 1fr; }
+      .asymmetric-grid, .curriculum-split, .workspace-grid { grid-template-columns: 1fr; }
+      .stage-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid { padding: var(--space-md); gap: var(--space-md); }
+      .kpi-grid { grid-template-columns: 1fr; }
+      .search-hub { padding: var(--space-md); }
+      .toast { left: var(--space-md); right: var(--space-md); bottom: var(--space-md); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- HEADER & FIRST VIEW -->
+    <header>
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">TEACHER PORTAL</span>
+          <span class="dossier-meta">次期学習指導要領準拠 / 2026年検証済みリンク＆令和8年1月資料反映</span>
+        </div>
+        <nav class="quick-nav" aria-label="ページ内セクション移動">
+          <button type="button" class="quick-nav-btn" onclick="window.location.href='../index.html'" style="background: var(--primary-container); border-color: var(--outline); color: var(--on-primary-container); font-weight: 700;">
+            <i data-lucide="arrow-left" aria-hidden="true"></i> 先生のポータルサイトTOPへ ↩
+          </button>
+          <button type="button" class="quick-nav-btn" onclick="scrollToSection('search-hub')">
+            <i data-lucide="search" aria-hidden="true"></i> 教材検索
+          </button>
+          <button type="button" class="quick-nav-btn" onclick="scrollToSection('copyright-section')">
+            <i data-lucide="copyright" aria-hidden="true"></i> 著作権教育コーナー
+          </button>
+          <button type="button" class="quick-nav-btn" onclick="scrollToSection('curriculum-section')">
+            <i data-lucide="book-open" aria-hidden="true"></i> 次期学習指導要領解説
+          </button>
+          <button type="button" class="quick-nav-btn" onclick="scrollToSection('workspace-section')">
+            <i data-lucide="bookmark" aria-hidden="true"></i> 授業クリップ (<span id="nav-clip-count">0</span>)
+          </button>
+        </nav>
+      </div>
+
+      <h1 class="title">情報活用能力・情報モラル教育 公式教材ポータル</h1>
+      <p class="standfirst">文部科学省『審議まとめ』『論点整理』に基づく授業指針と、官公庁・公的機関・企業の検証済み無料教材（URLワンクリックコピー対応）を即検索。</p>
+
+      <!-- KPI SUMMARY STRIP -->
+      <div class="kpi-grid" aria-label="収録サマリー">
+        <div class="figure-card">
+          <div class="figure-card-head">
+            <span class="index-num">01</span>
+            <span class="figure-label">収録公式教材・ポータル</span>
+          </div>
+          <div class="figure-value" id="kpi-total">0</div>
+          <div class="figure-sub">官公庁・専門団体・民間無償公開</div>
+        </div>
+        <div class="figure-card">
+          <div class="figure-card-head">
+            <span class="index-num">02</span>
+            <span class="figure-label">著作権教育特設リソース</span>
+          </div>
+          <div class="figure-value is-gold" id="kpi-copyright">0</div>
+          <div class="figure-sub">文化庁・CRIC・SARTRAS・RIAJ・NHK</div>
+        </div>
+        <div class="figure-card">
+          <div class="figure-card-head">
+            <span class="index-num">03</span>
+            <span class="figure-label">検証済み直接コピーURL</span>
+          </div>
+          <div class="figure-value is-pine" id="kpi-urls">0</div>
+          <div class="figure-sub">ワンクリックで授業資料・連絡網へ貼付</div>
+        </div>
+        <div class="figure-card">
+          <div class="figure-card-head">
+            <span class="index-num">04</span>
+            <span class="figure-label">授業準備クリップ保存</span>
+          </div>
+          <div class="figure-value is-slate" id="kpi-clips">0</div>
+          <div class="figure-sub">校種・単元メモ付きで自動保存</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- TOP IMMEDIATE SEARCH & FILTER HUB -->
+    <section id="search-hub" class="search-hub" aria-label="教材検索・絞り込みパネル">
+      <div class="search-controls-row">
+        <div class="field-group">
+          <label for="search-input" class="field-label">
+            <i data-lucide="search" aria-hidden="true"></i> キーワード検索（教材名・機関名・テーマ・URL）
+          </label>
+          <div class="input-wrap">
+            <input id="search-input" type="text" class="text-input" placeholder="例：著作権、ディープフェイク、文化庁、生成AI、SNS拡散、mext" oninput="onSearchInput(this.value)">
+            <button type="button" id="clear-search-btn" class="clear-input-btn" aria-label="検索語をクリア" onclick="clearSearchInput()" hidden>
+              <i data-lucide="x" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="format-filter" class="field-label">
+            <i data-lucide="layers" aria-hidden="true"></i> 教材形式で絞り込む
+          </label>
+          <select id="format-filter" class="select-input" onchange="setFormatFilter(this.value)">
+            <option value="all">すべての形式</option>
+            <option value="portal">総合ポータル・事例集</option>
+            <option value="video">動画・アニメ教材</option>
+            <option value="workbook">冊子・ワークブック・PDF</option>
+            <option value="game">クイズ・ゲーム・体験</option>
+            <option value="guide">指導案・教員用ガイド</option>
+          </select>
+        </div>
+
+        <div class="control-actions">
+          <button type="button" id="clips-only-btn" class="btn btn-secondary" onclick="toggleClipsOnly()">
+            <i data-lucide="bookmark" aria-hidden="true"></i> クリップのみ (<span id="filter-clip-count">0</span>)
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="resetAllFilters()">
+            <i data-lucide="rotate-ccw" aria-hidden="true"></i> 条件リセット
+          </button>
+        </div>
+      </div>
+
+      <!-- School Level Tabs -->
+      <div class="filter-row">
+        <span class="filter-row-label">校種別タブ / TARGET SCHOOL LEVEL</span>
+        <div class="tab-strip" id="school-tabs" role="tablist" aria-label="校種別フィルター"></div>
+      </div>
+
+      <!-- Category Chips -->
+      <div class="filter-row">
+        <span class="filter-row-label">カテゴリフィルター / TOPIC CATEGORY</span>
+        <div class="chip-strip" id="category-chips" role="group" aria-label="カテゴリフィルター"></div>
+      </div>
+    </section>
+
+    <!-- RESULTS TOOLBAR & DIRECTORY -->
+    <section aria-label="検索結果一覧">
+      <div class="results-toolbar">
+        <div class="results-summary">
+          <span class="results-count" id="results-count-text">0件を表示中</span>
+          <span class="dossier-meta" id="active-filter-desc"></span>
+        </div>
+        <div class="view-controls">
+          <button type="button" id="view-card-btn" class="btn btn-secondary btn-compact is-active" onclick="setViewMode('card')">
+            <i data-lucide="layout-grid" aria-hidden="true"></i> カード表示
+          </button>
+          <button type="button" id="view-table-btn" class="btn btn-secondary btn-compact" onclick="setViewMode('table')">
+            <i data-lucide="table" aria-hidden="true"></i> 早見表表示
+          </button>
+          <button type="button" class="btn btn-primary btn-compact" onclick="copyVisibleUrls(this)">
+            <i data-lucide="copy" aria-hidden="true"></i> 表示中のURLを一括コピー
+          </button>
+        </div>
+      </div>
+
+      <div id="results-container" style="margin-top: var(--space-md);"></div>
+    </section>
+
+    <!-- SECTION 02: COPYRIGHT EDUCATION CORNER -->
+    <section id="copyright-section" class="section-block" aria-labelledby="copyright-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">02 COPYRIGHT</span>
+          <span class="dossier-meta">著作権教育強化コーナー / 文化庁・CRIC・SARTRAS・日本レコード協会・NHK</span>
+        </div>
+        <button type="button" class="quick-nav-btn" onclick="applyCopyrightFilterAndScroll()">
+          <i data-lucide="filter" aria-hidden="true"></i> 上部検索を「著作権教育」で絞り込む
+        </button>
+      </div>
+
+      <h2 id="copyright-heading" class="section-title">著作権教育・学校実務 公式リソース集</h2>
+      <p class="section-lede">児童生徒が情報の「受け手・送り手」として自他の権利を尊重する態度を育てる学習教材と、教員の授業内利用（著作権法第35条・SARTRAS制度）の根拠ポータルを厳選して収録しています。</p>
+
+      <div class="asymmetric-grid">
+        <div id="copyright-spotlight-grid" class="card-grid"></div>
+
+        <aside class="aside-box" aria-label="教員のための学校著作権指導ポイント">
+          <h3 class="aside-title">授業実践・校内実務の3つの確認軸</h3>
+          <div class="checklist-item">
+            <span class="index-num">01</span>
+            <div>
+              <strong>授業での著作物利用とSARTRAS</strong>
+              <p style="margin: var(--space-xs) 0 0; font-size: 0.875rem; color: var(--on-surface-variant);">オンライン授業や端末への資料配信等では、文化庁「著作権」およびSARTRAS「授業目的公衆送信補償金制度」の最新ガイドラインを確認します。</p>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <span class="index-num">02</span>
+            <div>
+              <strong>無断転載・海賊版・違法DLの防止</strong>
+              <p style="margin: var(--space-xs) 0 0; font-size: 0.875rem; color: var(--on-surface-variant);">日本レコード協会のアニメ教材・Q&amp;Aや総務省「インターネット上の海賊版対策」を活用し、創作者の権利とキャリア教育を結び付けて指導します。</p>
+            </div>
+          </div>
+          <div class="checklist-item">
+            <span class="index-num">03</span>
+            <div>
+              <strong>段階に応じた引用・出典明記</strong>
+              <p style="margin: var(--space-xs) 0 0; font-size: 0.875rem; color: var(--on-surface-variant);">小学校はCRIC「みんなのための著作権教室」や文化庁「はじめて学ぶ著作権」、中高はNHK for School「メディアタイムズ」等で探究学習の引用ルールを定着させます。</p>
+            </div>
+          </div>
+          <div style="border-top: 1px solid var(--outline-variant); padding-top: var(--space-sm); font-size: var(--label-size); color: var(--on-surface-variant);">
+            ※ 各教材は原則非営利の教育利用で無償公開されていますが、改変・再配布や学外研修利用時は各機関の利用規約を必ずご確認ください。
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 03: NEXT COURSE OF STUDY CONCISE GUIDANCE -->
+    <section id="curriculum-section" class="section-block" aria-labelledby="curriculum-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">03 CURRICULUM</span>
+          <span class="dossier-meta">根拠資料：文部科学省『次期学習指導要領等に向けた審議まとめ』『論点整理』『情報活用能力調査』</span>
+        </div>
+      </div>
+
+      <h2 id="curriculum-heading" class="section-title">次期学習指導要領 準拠ポイント（厳選解説）</h2>
+      <p class="section-lede">AI・デジタル技術が社会基盤となる2040年代を見据え、情報技術の「賢い使い手」と価値創造の「創り手」を育てるための抜本的体系化と指導の要点を整理しています。</p>
+
+      <!-- School Level Progression -->
+      <div class="stage-grid" aria-label="小中高の校種間接続">
+        <div class="stage-card">
+          <span class="source-citation">『審議まとめ』第1部第7章・総合的な探究の時間</span>
+          <h3 class="card-title">小学校：総合に「情報の領域」を付加</h3>
+          <p class="card-desc">探究的な学びの中で情報活用能力を実践する「ミニ探究ユニット」と、情報に関する基礎的事項を系統的に学ぶ独立した「情報ブロック」を組み合わせて育成します。</p>
+        </div>
+        <div class="stage-card is-mid">
+          <span class="source-citation">『審議まとめ』第2部 情報・技術</span>
+          <h3 class="card-title">中学校：「情報・技術科」の創設</h3>
+          <p class="card-desc">「情報技術」領域と「情報を基盤とした生産技術」領域の2領域で構成。小・高を繋ぐ情報活用能力育成の主たる受け皿として、特性の理解と課題解決力を重視します。</p>
+        </div>
+        <div class="stage-card is-high">
+          <span class="source-citation">『審議まとめ』第1部第7章・数学科・情報科</span>
+          <h3 class="card-title">高等学校：情報科充実＆数学Ⅰ接続</h3>
+          <p class="card-desc">必履修「情報科」でのAI・メディアリテラシー充実に加え、数学Ⅰに「社会を読み解く数学」を新設。調整授業時数制度や柔軟な教育課程編成も後押しされます。</p>
+        </div>
+      </div>
+
+      <div class="curriculum-split">
+        <!-- Left: 3 Core Pillars -->
+        <div class="pillar-list">
+          <div class="pillar-card">
+            <div class="pillar-head">
+              <h3 class="pillar-title">01. 「中核的な概念等」と「統合的な理解・総合的な発揮」</h3>
+              <span class="source-citation">『論点整理』／『審議まとめ』</span>
+            </div>
+            <p class="card-desc">単なる事実的知識の暗記や「本時主義」から脱却し、単元のまとまりごとに概念的知識を広く質高く使える方向目標（統合的な理解・総合的な発揮）を意識して授業を構造化します。</p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-head">
+              <h3 class="pillar-title">02. 道徳科における情報モラルと「曖昧さに耐える力」</h3>
+              <span class="source-citation">『審議まとめ』道徳科 (5)情報モラル</span>
+            </div>
+            <p class="card-desc">「してはいけないこと（個人情報・誹謗中傷）」を心の弱さと結び付けて議論することに加え、炎上投稿のリポストや不確かな情報の拡散など<strong>単純な正誤で判断しにくい問い</strong>に向き合い、発達段階に応じたネガティブ・ケイパビリティ（曖昧さに耐えること）を育みます。</p>
+          </div>
+
+          <div class="pillar-card">
+            <div class="pillar-head">
+              <h3 class="pillar-title">03. 探究の学習過程とクリティカル・シンキング</h3>
+              <span class="source-citation">JAPET＆CEC『情報活用能力ベーシック』／『審議まとめ』</span>
+            </div>
+            <p class="card-desc">偽・誤情報やフィルターバブルを見抜く批判的思考を各教科等で育成しつつ、探究プロセスと技術の学習過程を往還させます。</p>
+            <div class="cycle-strip" aria-label="情報活用能力ベーシック5ステップ">
+              <span class="cycle-step">❶ 課題の設定</span>
+              <span class="cycle-step">❷ 情報の収集</span>
+              <span class="cycle-step">❸ 整理・分析</span>
+              <span class="cycle-step">❹ まとめ・表現</span>
+              <span class="cycle-step">❺ 振り返り・改善</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Data Visualization -->
+        <div class="chart-panel">
+          <div class="chart-header">
+            <div>
+              <h3 class="pillar-title" id="chart-title">収録教材：カテゴリ別・校種カバレッジ</h3>
+              <div class="dossier-meta" id="chart-subtitle">ポータル収録データの分布（クリックで調査データへ切替）</div>
+            </div>
+            <div class="view-controls">
+              <button type="button" id="chart-tab-catalog" class="btn btn-secondary btn-compact is-active" onclick="switchChartMode('catalog')">収録教材分布</button>
+              <button type="button" id="chart-tab-survey" class="btn btn-secondary btn-compact" onclick="switchChartMode('survey')">文科省調査実態</button>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="portal-chart" aria-label="教材分布および情報活用能力調査グラフ"></canvas>
+          </div>
+          <div id="chart-footnote" style="font-size: var(--label-size); color: var(--on-surface-variant);">
+            出典：本ポータル収録の公式・公的機関・企業無料教材データ（2026年検証済み）。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04: LESSON PREP CLIPBOARD & FAQ -->
+    <section id="workspace-section" class="section-block" aria-labelledby="workspace-heading">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">04 WORKSPACE &amp; FAQ</span>
+          <span class="dossier-meta">授業準備クリップ（自動保存）＆ よくある質問</span>
+        </div>
+      </div>
+
+      <h2 id="workspace-heading" class="section-title">授業準備クリップ ＆ 教員向けFAQ</h2>
+
+      <div class="workspace-grid">
+        <!-- Saved Clips Panel -->
+        <div class="clip-panel" aria-label="授業準備クリップ一覧">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-sm);">
+            <div>
+              <h3 class="aside-title">保存した授業用教材クリップ (<span id="workspace-clip-count">0</span>件)</h3>
+              <div class="dossier-meta">各カードの「クリップ保存」から追加・単元メモを記録できます</div>
+            </div>
+            <div class="control-actions">
+              <button type="button" class="btn btn-primary btn-compact" onclick="copyClipList(this)">
+                <i data-lucide="clipboard-list" aria-hidden="true"></i> クリップ一覧をコピー
+              </button>
+              <button type="button" id="clear-clips-btn" class="btn btn-danger-outline btn-compact" onclick="handleClearAllClips(this)">
+                <i data-lucide="trash-2" aria-hidden="true"></i> すべて解除
+              </button>
+            </div>
+          </div>
+          <div id="clips-container" style="display: grid; gap: var(--space-sm);"></div>
+        </div>
+
+        <!-- FAQ Panel -->
+        <div class="faq-list" aria-label="よくある質問">
+          <div class="faq-item">
+            <p class="faq-q">Q. 情報リテラシーと情報モラルはどう違いますか？</p>
+            <p class="faq-a">A. 情報リテラシーは「情報を適切に読み取り・活用する力」全般を、情報モラルは「情報社会で適正な活動を行うための考え方と態度」を指します。次期学習指導要領の整理では情報活用能力の構成要素として相互に連携し、本ポータル掲載教材は双方をカバーしています。</p>
+          </div>
+          <div class="faq-item">
+            <p class="faq-q">Q. 掲載されている公式教材はすべて無料で使えますか？</p>
+            <p class="faq-a">A. 紹介している教材はいずれも公式サイト上で無償公開されています。ただし「非営利の教育目的に限る」「改変・再配布の禁止」等の条件が定められている場合があるため、学外研修や商用利用時は提供元の利用規約をご確認ください。</p>
+          </div>
+          <div class="faq-item">
+            <p class="faq-q">Q. 保護者・家庭との連携にはどの教材が向いていますか？</p>
+            <p class="faq-a">A. こども家庭庁「普及啓発リーフレット集」、総務省・文部科学省「e-ネットキャラバン講座」、総務省「上手にネットと付き合おう！（保護者・教職員向け）」は家庭でのルールづくりやフィルタリング啓発に最適です（文部科学省『第2章 情報活用能力の育成』）。</p>
+          </div>
+          <div class="faq-item">
+            <p class="faq-q">Q. 生成AIやフェイクニュース対策の授業には何が使えますか？</p>
+            <p class="faq-a">A. 文部科学省「情報モラル教育ポータルサイト」の生成AI・ファクトチェック資料、総務省「インターネットトラブル事例集（2026年版ディープフェイク特集）」・偽・誤情報特集、スマートニュース メディア研究所「メディアリテラシー教材」が効果的です。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <strong>出典・根拠資料（すべて官公庁・公的機関および検証済み教育リソースに基づく）</strong>
+      <span>文部科学省『次期学習指導要領等に向けた審議まとめ』『次期学習指導要領「論点整理」』『情報モラル教育関連資料一覧（令和8年1月・資料6）』『情報活用能力調査（図表3-1-6）』『第2章 情報活用能力の育成』 / 総務省『上手にネットと付き合おう！』『インターネットトラブル事例集（2026年版）』『ICT活用リテラシー向上プロジェクト』 / 文化庁『著作権』『はじめて学ぶ著作権』 / 法務省『インターネットと人権』『法教育』 / こども家庭庁『普及啓発コンテンツ』 / 公益社団法人著作権情報センター（CRIC） / SARTRAS / 一般社団法人日本レコード協会 / NHK for School / JAPET＆CEC『ネット社会の歩き方』『情報活用能力ベーシック』 / エレファンキューブ『【2026年版】情報モラル教育は何から始める？学年別・無料教材リンク集』</span>
+    </footer>
+  </div>
+
+  <!-- Toast feedback -->
+  <div id="copy-toast" class="toast" role="status" aria-live="polite"></div>
+
+  <api-shim></api-shim>
+  <script>
+    const RESOURCES = [
+      {
+        id: `mext-moral-site`,
+        num: `01`,
+        title: `情報モラル学習サイト（21MORAL）`,
+        provider: `文部科学省`,
+        url: `https://www.mext.go.jp/moral/`,
+        desc: `小学1年生から高校3年生までを対象に、写真や動画を交えたクイズ形式で学べる国の公式e-learningサイト。1単元が短く、朝の会や授業導入に最適です。`,
+        levels: [`elem_low`, `elem_high`, `junior`, `high`],
+        levelLabels: [`小低・中`, `小高`, `中学`, `高校`],
+        category: `portal`,
+        categoryLabel: `総合ポータル`,
+        format: `game`,
+        formatLabel: `クイズ・動画`,
+        focus: `情報モラル全般・SNS投稿判断の設問演習`,
+        featuredCopyright: false
+      },
+      {
+        id: `mext-moral-portal`,
+        num: `02`,
+        title: `情報モラル教育ポータルサイト（生成AI・ファクトチェック・授業実践）`,
+        provider: `文部科学省`,
+        url: `https://www.mext.go.jp/zyoukatsu/moral/`,
+        desc: `主に教職員向けの情報モラル教育拠点。生成AIとの向き合い方やファクトチェック動画、ニセ・誤情報への注意喚起ポスター、授業実践例を掲載。`,
+        levels: [`elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`小高`, `中学`, `高校`, `教職員`],
+        category: `literacy`,
+        categoryLabel: `メディアリテラシー・生成AI`,
+        format: `guide`,
+        formatLabel: `指導資料・動画`,
+        focus: `生成AI・ファクトチェック・授業実践例`,
+        featuredCopyright: false
+      },
+      {
+        id: `soumu-wise`,
+        num: `03`,
+        title: `上手にネットと付き合おう！～安心・安全なインターネット利用ガイド～`,
+        provider: `総務省`,
+        url: `https://www.soumu.go.jp/use_the_internet_wisely/`,
+        desc: `未就学児・青少年・保護者・教職員・シニア向けの全世代型啓発ポータル。SNS誹謗中傷、海賊版対策、フィルターバブル等の特集が充実。`,
+        levels: [`elem_low`, `elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`全学年`, `教職員・保護者`],
+        category: `portal`,
+        categoryLabel: `総合ポータル`,
+        format: `portal`,
+        formatLabel: `ポータル・マンガ`,
+        focus: `ネット利用全般・海賊版対策・保護者連携`,
+        featuredCopyright: false
+      },
+      {
+        id: `soumu-trouble-2026`,
+        num: `04`,
+        title: `インターネットトラブル事例集（2026年版）`,
+        provider: `総務省`,
+        url: `https://www.soumu.go.jp/use_the_internet_wisely/trouble/`,
+        desc: `毎年更新される実例ベースのマンガ・解説冊子と教職員用PowerPoint補助教材。2026年版はディープフェイク特集・初動対応と相談窓口特集を新設。`,
+        levels: [`elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`小高`, `中学`, `高校`, `教職員`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `workbook`,
+        formatLabel: `マンガ・冊子・PPT`,
+        focus: `最新トラブル実例・ディープフェイク・初動対応`,
+        featuredCopyright: false
+      },
+      {
+        id: `soumu-nisegojouhou`,
+        num: `05`,
+        title: `偽・誤情報対策特集（ICT活用リテラシー向上プロジェクト）`,
+        provider: `総務省`,
+        url: `https://www.soumu.go.jp/use_the_internet_wisely/special/nisegojouhou/`,
+        desc: `ネットやSNSの偽・誤情報、アルゴリズムによる情報の偏りを見抜くための検索可能な疑問解消型コンテンツ。研修テーマ別の活用にも対応。`,
+        levels: [`junior`, `high`, `teacher`],
+        levelLabels: [`中学`, `高校`, `教職員`],
+        category: `literacy`,
+        categoryLabel: `メディアリテラシー・生成AI`,
+        format: `portal`,
+        formatLabel: `特集サイト`,
+        focus: `偽情報・誤情報・フィルターバブル対策`,
+        featuredCopyright: false
+      },
+      {
+        id: `soumu-ict5`,
+        num: `06`,
+        title: `5つの分野のICTリテラシーを学ぼう ～つくろう！守ろう！安心できる情報社会～`,
+        provider: `総務省`,
+        url: `https://www.soumu.go.jp/use_the_internet_wisely/special/Ictliteracy_for_yps/`,
+        desc: `青少年向け・保護者向け・シニア向けの世代別特徴を踏まえてICTリテラシー5分野を整理した学習特設ページ（令和8年1月文科省一覧掲載）。`,
+        levels: [`elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`小高`, `中学`, `高校`, `保護者`],
+        category: `portal`,
+        categoryLabel: `総合ポータル`,
+        format: `portal`,
+        formatLabel: `特設サイト`,
+        focus: `世代別ICTリテラシー5分野の体系学習`,
+        featuredCopyright: false
+      },
+      {
+        id: `soumu-dpa`,
+        num: `07`,
+        title: `DIGITAL POSITIVE ACTION`,
+        provider: `総務省（官民連携プロジェクト）`,
+        url: `https://www.soumu.go.jp/dpa/`,
+        desc: `ICTリテラシー向上に向けた官民連携の意識啓発プロジェクト（令和8年1月文科省「情報モラル教育関連資料一覧」掲載）。`,
+        levels: [`junior`, `high`, `teacher`],
+        levelLabels: [`中学`, `高校`, `教職員`],
+        category: `literacy`,
+        categoryLabel: `メディアリテラシー・生成AI`,
+        format: `portal`,
+        formatLabel: `官民連携ポータル`,
+        focus: `健全なデジタル空間と情報発信リテラシー`,
+        featuredCopyright: false
+      },
+      {
+        id: `cfa-leaflet`,
+        num: `08`,
+        title: `普及啓発リーフレット集（青少年インターネット環境整備）`,
+        provider: `こども家庭庁`,
+        url: `https://www.cfa.go.jp/policies/youth-kankyou/leaflet`,
+        desc: `主に保護者向けの普及啓発リーフレット集。フィルタリング設定や家庭内ルールづくりなど、PTA・学級懇談会での配布資料に最適です。`,
+        levels: [`elem_low`, `elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`保護者`, `教職員`],
+        category: `portal`,
+        categoryLabel: `総合ポータル`,
+        format: `workbook`,
+        formatLabel: `リーフレットPDF`,
+        focus: `家庭連携・ペアレンタルコントロール・保護者啓発`,
+        featuredCopyright: false
+      },
+      {
+        id: `enet-caravan`,
+        num: `09`,
+        title: `e-ネットキャラバン講座（出前講座・資料）`,
+        provider: `総務省・文部科学省・情報通信事業者等`,
+        url: `https://www3.fmmc.or.jp/e-netcaravan/course/#ct2`,
+        desc: `児童生徒・保護者・教職員を対象としたインターネット安全教室の講座案内（受講には申込みが必要）。学校保健委員会やPTA研修でも活用されます。`,
+        levels: [`elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`小高`, `中学`, `高校`, `保護者・教職員`],
+        category: `security`,
+        categoryLabel: `セキュリティ・危険回避`,
+        format: `guide`,
+        formatLabel: `出前講座案内`,
+        focus: `専門家・事業者による学校／保護者向け講座`,
+        featuredCopyright: false
+      },
+      {
+        id: `bunka-copyright`,
+        num: `10`,
+        title: `著作権ポータル（学校教育と著作権・テキスト・政策）`,
+        provider: `文化庁`,
+        url: `https://www.bunka.go.jp/seisaku/chosakuken/`,
+        desc: `著作権法改正、学校教育における著作物の利用、啓発テキスト等を網羅する文化庁の一次公式情報ポータル。教員の実務確認の基点となります。`,
+        levels: [`junior`, `high`, `teacher`],
+        levelLabels: [`中学`, `高校`, `教職員`],
+        category: `copyright`,
+        categoryLabel: `著作権教育`,
+        format: `guide`,
+        formatLabel: `公式ポータル・資料`,
+        focus: `学校教育と著作権・法制度・公式テキスト`,
+        featuredCopyright: true
+      },
+      {
+        id: `bunka-hajimete`,
+        num: `11`,
+        title: `はじめて学ぶ著作権`,
+        provider: `文化庁`,
+        url: `https://pf.bunka.go.jp/chosaku/chosakuken/hakase/hajimete_1/index.html`,
+        desc: `キャラクターと一緒に著作権の基本的な仕組みを段階的に学べる文化庁公式学習ページ。小学生〜中学生の初期指導に適しています。`,
+        levels: [`elem_low`, `elem_high`, `junior`],
+        levelLabels: [`小低・中`, `小高`, `中学`],
+        category: `copyright`,
+        categoryLabel: `著作権教育`,
+        format: `game`,
+        formatLabel: `Web学習コンテンツ`,
+        focus: `著作権の基本概念・身の回りの創作物保護`,
+        featuredCopyright: true
+      },
+      {
+        id: `cric-portal`,
+        num: `12`,
+        title: `著作権情報センター（CRIC）公式ポータル`,
+        provider: `公益社団法人 著作権情報センター（CRIC）`,
+        url: `https://www.cric.or.jp/`,
+        desc: `「著作権なるほど質問箱」や関係法令・Q&A・相談案内など、授業準備で迷った際に参照できる著作権専門団体の公式データベース。`,
+        levels: [`high`, `teacher`],
+        levelLabels: [`高校`, `教職員`],
+        category: `copyright`,
+        categoryLabel: `著作権教育`,
+        format: `portal`,
+        formatLabel: `専門ポータル・Q&A`,
+        focus: `著作権Q&A・引用要件・実務判例解説`,
+        featuredCopyright: true
+      },
+      {
+        id: `cric-kids`,
+        num: `13`,
+        title: `みんなのための著作権教室`,
+        provider: `公益社団法人 著作権情報センター（CRIC）`,
+        url: `http://kids.cric.or.jp/`,
+        desc: `子どもたちが身近な事例から著作権のルールと守る理由を楽しく理解できるCRICの児童生徒向け公式サイト。`,
+        levels: [`elem_low`, `elem_high`, `junior`],
+        levelLabels: [`小低・中`, `小高`, `中学`],
+        category: `copyright`,
+        categoryLabel: `著作権教育`,
+        format: `portal`,
+        formatLabel: `児童生徒向けサイト`,
+        focus: `SNS画像利用・調べ学習でのコピー＆引用`,
+        featuredCopyright: true
+      },
+      {
+        id: `sartras-portal`,
+        num: `14`,
+        title: `授業目的公衆送信補償金制度（SARTRAS）`,
+        provider: `一般社団法人 授業目的公衆送信補償金等管理協会`,
+        url: `https://sartras.or.jp/`,
+        desc: `改正著作権法第35条に基づく授業目的公衆送信補償金制度の公式ポータル。GIGA端末やオンライン授業で著作物を送信する際の必須実務情報。`,
+        levels: [`teacher`],
+        levelLabels: [`教職員・管理職`],
+        category: `copyright`,
+        categoryLabel: `著作権教育`,
+        format: `guide`,
+        formatLabel: `制度ガイド・運用規程`,
+        focus: `改正著作権法第35条・オンライン授業での著作物送信`,
+        featuredCopyright: true
+      },
+      {
+        id: `riaj-copyright`,
+        num: `15`,
+        title: `著作権を学ぶ教材（動画・パンフレット・学校音楽利用Q&A）`,
+        provider: `一般社団法人 日本レコード協会（RIAJ）`,
+        url: `https://www.riaj.or.jp/f/leg/copyright/education/`,
+        desc: `中高生向けに著作権の基礎をアニメで解説する動画、音楽がリスナーに届く仕事紹介、クイズ入り啓発パンフ、学校での音楽利用Q&Aを提供。`,
+        levels: [`junior`, `high`, `teacher`],
+        levelLabels: [`中学`, `高校`, `教職員`],
+        category: `copyright`,
+        categoryLabel: `著作権教育`,
+        format: `video`,
+        formatLabel: `アニメ動画・冊子`,
+        focus: `違法DL・SNS無断転載防止・キャリア教育・音楽利用Q&A`,
+        featuredCopyright: true
+      },
+      {
+        id: `nhk-mediatimes`,
+        num: `16`,
+        title: `メディアタイムズ「どこまでがOK？著作権」`,
+        provider: `NHK for School`,
+        url: `https://www2.nhk.or.jp/school/movie/bangumi.cgi?das_id=D0005180321_0000`,
+        desc: `写真や音楽などの著作権をどこまで使ってよいか、具体的な制作現場の視点から分かりやすく学べる授業導入向け番組動画。`,
+        levels: [`elem_high`, `junior`],
+        levelLabels: [`小高`, `中学`],
+        category: `copyright`,
+        categoryLabel: `著作権教育`,
+        format: `video`,
+        formatLabel: `番組動画`,
+        focus: `制作現場の事例で考える著作権の境界線`,
+        featuredCopyright: true
+      },
+      {
+        id: `nhk-atmedia`,
+        num: `17`,
+        title: `アットメディア（@media）「著作権」`,
+        provider: `NHK for School`,
+        url: `https://www.nhk.or.jp/school/sougou/sumaho/`,
+        desc: `総合的な学習・探究の時間や情報モラル指導で使いやすい、スマートフォン時代の著作権と表現をめぐる視聴覚クリップ教材。`,
+        levels: [`elem_high`, `junior`, `high`],
+        levelLabels: [`小高`, `中学`, `高校`],
+        category: `copyright`,
+        categoryLabel: `著作権教育`,
+        format: `video`,
+        formatLabel: `番組クリップ`,
+        focus: `スマホ撮影・発信と肖像権／著作権`,
+        featuredCopyright: true
+      },
+      {
+        id: `mext-playlist`,
+        num: `18`,
+        title: `情報化社会の新たな問題を考えるための動画教材（再生リスト）`,
+        provider: `文部科学省`,
+        url: `https://www.youtube.com/playlist?list=PLGpGsGZ3lmbAOd2f-4u_Mx-BCn13GywDI`,
+        desc: `GIGA端末の学習目的利用・チャットのマナー、無料を装うサイトの確認（教材③）、検索情報の真偽確認など、教員の手引書と連動した動画教材集。`,
+        levels: [`elem_low`, `elem_high`, `junior`, `high`],
+        levelLabels: [`小低・中`, `小高`, `中学`, `高校`],
+        category: `security`,
+        categoryLabel: `セキュリティ・危険回避`,
+        format: `video`,
+        formatLabel: `公式動画シリーズ`,
+        focus: `学習用端末利用・偽無料サイト確認・情報の真偽`,
+        featuredCopyright: false
+      },
+      {
+        id: `mext-vid-pagecheck`,
+        num: `19`,
+        title: `動画教材③「そのページ、確認しなくて大丈夫？」`,
+        provider: `文部科学省`,
+        url: `https://www.youtube.com/watch?v=oKHjRnu2H_A&list=PLGpGsGZ3lmbAOd2f-4u_Mx-BCn13GywDI&index=7&t=3s`,
+        desc: `無料を装って個人情報を取得するウェブサイトやアプリの存在を理解し、安全に賢くインターネットを利用する態度を育てる動画教材。`,
+        levels: [`elem_high`, `junior`],
+        levelLabels: [`小高`, `中学`],
+        category: `security`,
+        categoryLabel: `セキュリティ・危険回避`,
+        format: `video`,
+        formatLabel: `動画教材`,
+        focus: `フィッシング・個人情報取得アプリへの警戒`,
+        featuredCopyright: false
+      },
+      {
+        id: `mext-vid-sns-leak`,
+        num: `20`,
+        title: `動画教材「写真や動画が流出する怖さを知ろう」`,
+        provider: `文部科学省（令和8年1月資料掲載）`,
+        url: `https://youtu.be/NDGcNN1DrHk`,
+        desc: `21MORALの連動設問2問と組み合わせて活用できる公式動画。デジタル・タトゥーや写真・動画流出のリスクを具体的に考えさせます。`,
+        levels: [`elem_high`, `junior`, `high`],
+        levelLabels: [`小高`, `中学`, `高校`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `video`,
+        formatLabel: `動画＋連動設問`,
+        focus: `写真流出・プライバシー侵害・記録性`,
+        featuredCopyright: false
+      },
+      {
+        id: `mext-vid-sns-spread`,
+        num: `21`,
+        title: `動画教材「その情報、広めて大丈夫？ SNS拡散編」`,
+        provider: `文部科学省（令和8年1月資料掲載）`,
+        url: `https://youtu.be/DIkfkpG5XTc`,
+        desc: `ポータル上の授業実践例（casestudy/20）および設問3問と連動。炎上・デマ拡散の場面で立ち止まって考える道徳・総合の教材に最適。`,
+        levels: [`elem_high`, `junior`, `high`],
+        levelLabels: [`小高`, `中学`, `高校`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `video`,
+        formatLabel: `動画＋授業実践例`,
+        focus: `SNSリポストの責任・不確かな情報の拡散防止`,
+        featuredCopyright: false
+      },
+      {
+        id: `mext-vid-sns-post`,
+        num: `22`,
+        title: `動画教材「軽はずみなSNSへの投稿／書き込みの影響」`,
+        provider: `文部科学省（令和8年1月資料掲載）`,
+        url: `https://youtu.be/WCx-RMKRT60`,
+        desc: `軽はずみな投稿（WCx-RMKRT60）、書き込みの影響（OdxeRvWJkq8）、思ったままの送信（ojMxv_xz65M）、記録性・公開性（JrFfsCg6uXM）を網羅。`,
+        levels: [`elem_high`, `junior`, `high`],
+        levelLabels: [`小高`, `中学`, `高校`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `video`,
+        formatLabel: `動画シリーズ`,
+        focus: `発信の責任・情報の記録性と公開性`,
+        featuredCopyright: false
+      },
+      {
+        id: `moj-jinken-pdf`,
+        num: `23`,
+        title: `啓発冊子「あなたは、大丈夫？考えよう！インターネットと人権（四訂版）」`,
+        provider: `法務省`,
+        url: `https://www.moj.go.jp/content/001394213.pdf`,
+        desc: `ネット上の誹謗中傷・プライバシー侵害と人権について学ぶ法務省の公式冊子。全国の人権教室の依頼窓口（jinken04_00100.html）も案内されています。`,
+        levels: [`elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`小高`, `中学`, `高校`, `教職員`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `workbook`,
+        formatLabel: `啓発冊子PDF`,
+        focus: `人権侵害・ネットいじめ・人権教室連携`,
+        featuredCopyright: false
+      },
+      {
+        id: `moj-jinken-video`,
+        num: `24`,
+        title: `啓発動画「インターネットはヒトを傷つけるモノじゃない。」（全4編）`,
+        provider: `法務省`,
+        url: `https://www.moj.go.jp/JINKEN/jinken04_00257.html`,
+        desc: `加害者にも被害者にもならないための全4編の啓発動画。同省「『誰か』のことじゃない。」インターネット編とあわせ道徳科の視聴覚教材に好適。`,
+        levels: [`junior`, `high`],
+        levelLabels: [`中学`, `高校`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `video`,
+        formatLabel: `啓発動画4編`,
+        focus: `SNS誹謗中傷・他者の人権尊重`,
+        featuredCopyright: false
+      },
+      {
+        id: `moj-houkyouiku`,
+        num: `25`,
+        title: `小学生向け法教育教材「ルールは誰のもの？～みんなで考える法教育～」`,
+        provider: `法務省`,
+        url: `https://www.moj.go.jp/housei/shihouseido/housei10_00036.html`,
+        desc: `題材4「情報化社会における表現の自由と知る権利（P.70〜）」および映像教材「書き込む前に考えよう！」を収録した小学生向け冊子・視聴覚教材。`,
+        levels: [`elem_low`, `elem_high`],
+        levelLabels: [`小低・中`, `小高`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `workbook`,
+        formatLabel: `冊子＋映像教材`,
+        focus: `表現の自由と知る権利・ルールづくり`,
+        featuredCopyright: false
+      },
+      {
+        id: `mpd-tokyo-rule`,
+        num: `26`,
+        title: `TOKYO少年ネットルールプログラム 第2部「その言葉書き込んで大丈夫？」`,
+        provider: `警視庁（令和8年1月文科省一覧掲載）`,
+        url: `https://www.youtube.com/watch?v=X0ZBROGa4Yc`,
+        desc: `小・中学生向けのネットルール啓発動画。※文科省令和8年1月資料において「令和8年3月31日まで公開」と注記あり（公開状況をご確認のうえご活用ください）。`,
+        levels: [`elem_high`, `junior`],
+        levelLabels: [`小高`, `中学`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `video`,
+        formatLabel: `動画教材（期間限定注記）`,
+        focus: `ネット書き込みのリスク・非行／被害防止`,
+        featuredCopyright: false
+      },
+      {
+        id: `tokyo-sns-note`,
+        num: `27`,
+        title: `SNS東京ノート`,
+        provider: `東京都教育委員会`,
+        url: `https://ijime.metro.tokyo.lg.jp/school/`,
+        desc: `発達段階に応じてSNSの使い方やコミュニケーションのルールを家庭・学校で話し合うことができる自治体の定番ワーク教材。`,
+        levels: [`elem_low`, `elem_high`, `junior`, `high`],
+        levelLabels: [`小低・中`, `小高`, `中学`, `高校`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `workbook`,
+        formatLabel: `ワーク教材・指導資料`,
+        focus: `家庭ルールづくり・SNSコミュニケーション`,
+        featuredCopyright: false
+      },
+      {
+        id: `japet-anime`,
+        num: `28`,
+        title: `ネット社会の歩き方「動画・シミュレーション・イラスト・冊子教材」`,
+        provider: `JAPET＆CEC（日本教育工学振興会）`,
+        url: `https://www.japet.or.jp/net-walk/simulation/index.html`,
+        desc: `学年別に絞り込み可能な総合教材群。シミュレーション教材のほか、動画（anime）、イラスト（illust）、冊子（booklet）が一通り揃います。`,
+        levels: [`elem_low`, `elem_high`, `junior`, `high`],
+        levelLabels: [`小低・中`, `小高`, `中学`, `高校`],
+        category: `portal`,
+        categoryLabel: `総合ポータル`,
+        format: `game`,
+        formatLabel: `体験・動画・イラスト`,
+        focus: `セキュリティ・ネチケット・著作権の疑似体験`,
+        featuredCopyright: false
+      },
+      {
+        id: `smartnews-literacy`,
+        num: `29`,
+        title: `メディアリテラシー教材（フェイクニュース・情報の偏り）`,
+        provider: `スマートニュース メディア研究所`,
+        url: `https://smartnews-smri.com/literacy/`,
+        desc: `高校の「情報」や探究の授業実践例、体験型ゲームを通じて、ニュースの見極め方や情報の偏りを批判的に読み解く力を養成します。`,
+        levels: [`junior`, `high`, `teacher`],
+        levelLabels: [`中学`, `高校`, `教職員`],
+        category: `literacy`,
+        categoryLabel: `メディアリテラシー・生成AI`,
+        format: `game`,
+        formatLabel: `ゲーム・授業実践例`,
+        focus: `フェイクニュース・メディア情報の批判的吟味`,
+        featuredCopyright: false
+      },
+      {
+        id: `goodnet-portal`,
+        num: `30`,
+        title: `もっとグッドネット（炎上・法的責任・出前講座情報）`,
+        provider: `安心ネットづくり促進協議会`,
+        url: `https://www.good-net.jp/`,
+        desc: `通信事業者・教育関係者が参画する業界横断団体。総務省事例集制作にも関わり、炎上のメカニズムや法的責任を扱う発展資料を集約。`,
+        levels: [`high`, `teacher`],
+        levelLabels: [`高校`, `教職員`],
+        category: `sns`,
+        categoryLabel: `SNS・人権・誹謗中傷`,
+        format: `portal`,
+        formatLabel: `資料・講座情報`,
+        focus: `炎上メカニズム・法的責任・全国出前講座`,
+        featuredCopyright: false
+      },
+      {
+        id: `mext-guide-sumaho`,
+        num: `31`,
+        title: `ちょっと待って！スマホ時代の君たちへ／情報モラルに関する指導`,
+        provider: `文部科学省`,
+        url: `https://www.mext.go.jp/a_menu/shotou/zyouhou/detail/1369617.htm`,
+        desc: `教育委員会・学校の「情報モラル実践実例集」や教員向け指導手引き、指導の枠組み（1368445.htm）をまとめた国の指導基盤ページ。`,
+        levels: [`teacher`],
+        levelLabels: [`教職員`],
+        category: `curriculum`,
+        categoryLabel: `次期学習指導要領（根拠資料）`,
+        format: `guide`,
+        formatLabel: `指導手引き・実践集`,
+        focus: `教員向け指導体制・実践実例集・手引き`,
+        featuredCopyright: false
+      },
+      {
+        id: `ipa-moral`,
+        num: `32`,
+        title: `＃今こそ考えよう情報モラル（情報セキュリティ啓発・教材）`,
+        provider: `IPA（独立行政法人情報処理推進機構）`,
+        url: `https://www.ipa.go.jp/security/keihatsu/morality/`,
+        desc: `パスワード管理、SNSの乗っ取り・詐欺対策、情報セキュリティの基礎を身近な視点で学べるIPAの公式啓発コンテンツ。`,
+        levels: [`elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`小高`, `中学`, `高校`, `教職員`],
+        category: `security`,
+        categoryLabel: `セキュリティ・危険回避`,
+        format: `portal`,
+        formatLabel: `公式啓発コンテンツ`,
+        focus: `情報セキュリティ・パスワード・不正アクセス対策`,
+        featuredCopyright: false,
+        isKeywordCopy: true
+      },
+      {
+        id: `nisc-handbook`,
+        num: `33`,
+        title: `インターネットの安全・安心ハンドブック／サイバーセキュリティ教材`,
+        provider: `NISC（内閣サイバーセキュリティセンター）`,
+        url: `https://www.nisc.go.jp/security-site/`,
+        desc: `サイバー攻撃やフィッシング詐欺への具体的な防御策、端末の基本設定を分かりやすくまとめた政府のセキュリティ普及啓発リソース。`,
+        levels: [`junior`, `high`, `teacher`],
+        levelLabels: [`中学`, `高校`, `教職員`],
+        category: `security`,
+        categoryLabel: `セキュリティ・危険回避`,
+        format: `workbook`,
+        formatLabel: `ハンドブック・教材`,
+        focus: `サイバーセキュリティ基礎・詐欺・ウイルス対策`,
+        featuredCopyright: false,
+        isKeywordCopy: true
+      },
+      {
+        id: `private-suite`,
+        num: `34`,
+        title: `官民公式無料教材群（GIGAワークブック・Interland・キャリア3社・セキュリティ各社）`,
+        provider: `LINEヤフー / Google / NTTドコモ / KDDI / トレンドマイクロ / カスペルスキー / グリー / #NoHeartNoSNS`,
+        url: `https://www.elephancube.co.jp/2026/07/information-literacy/`,
+        desc: `2026年7月全URL検証済み記事にて、LINEヤフー「GIGAワークブック」、Google「Be Internet Awesome（インターランド）」、NTTドコモ・KDDI安全教室、カスペルスキー×静岡大カード教材、グリー「事例に学ぶ情報モラル」、総務省・法務省ほか「#NoHeartNoSNS」へのリンクが一覧整理されています。`,
+        levels: [`elem_low`, `elem_high`, `junior`, `high`, `teacher`],
+        levelLabels: [`全学年`, `教職員`],
+        category: `portal`,
+        categoryLabel: `総合ポータル`,
+        format: `portal`,
+        formatLabel: `2026年検証済みリンク集`,
+        focus: `ワークブック・ゲーム・出前授業・炎上事例演習`,
+        featuredCopyright: false
+      }
+    ];
+
+    const SCHOOL_TABS = [
+      { id: `all`, label: `すべて` },
+      { id: `elem_low`, label: `小学校（低・中学年）` },
+      { id: `elem_high`, label: `小学校（高学年）` },
+      { id: `junior`, label: `中学校` },
+      { id: `high`, label: `高等学校` },
+      { id: `teacher`, label: `教職員・保護者・研修` }
+    ];
+
+    const CATEGORIES = [
+      { id: `all`, label: `すべて` },
+      { id: `portal`, label: `総合ポータル` },
+      { id: `copyright`, label: `著作権教育` },
+      { id: `sns`, label: `SNS・人権・誹謗中傷` },
+      { id: `security`, label: `セキュリティ・危険回避` },
+      { id: `literacy`, label: `メディアリテラシー・生成AI` },
+      { id: `curriculum`, label: `次期学習指導要領（根拠資料）` }
+    ];
+
+    const STATE = {
+      searchQuery: ``,
+      schoolTab: `all`,
+      category: `all`,
+      format: `all`,
+      clipsOnly: false,
+      viewMode: `card`,
+      chartMode: `catalog`,
+      clips: {},
+      clearArmed: false
+    };
+
+    let portalChartInstance = null;
+    let toastTimer = null;
+
+    function getCssToken(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`)
+        .replace(/'/g, `&#39;`);
+    }
+
+    function renderIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById(`copy-toast`);
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add(`is-visible`);
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove(`is-visible`);
+      }, 2400);
+    }
+
+    function fallbackCopyText(text) {
+      const ta = document.createElement(`textarea`);
+      ta.value = text;
+      ta.setAttribute(`readonly`, ``);
+      ta.style.position = `fixed`;
+      ta.style.opacity = `0`;
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try {
+        ok = document.execCommand(`copy`);
+      } catch (e) {
+        ok = false;
+      }
+      document.body.removeChild(ta);
+      return ok;
+    }
+
+    function copyTextToClipboard(text, onSuccess) {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === `function`) {
+        navigator.clipboard.writeText(text).then(() => {
+          onSuccess();
+        }).catch(() => {
+          if (fallbackCopyText(text)) onSuccess();
+          else showToast(`クリップボードへのコピーに失敗しました。URLを選択してコピーしてください。`);
+        });
+      } else {
+        if (fallbackCopyText(text)) onSuccess();
+        else showToast(`クリップボードへのコピーに失敗しました。`);
+      }
+    }
+
+    function copyResourceUrl(resourceId, btnEl) {
+      const item = RESOURCES.find((r) => r.id === resourceId);
+      if (!item) return;
+      copyTextToClipboard(item.url, () => {
+        showToast(`コピーしました：${item.title}`);
+        if (btnEl) {
+          const originalHtml = btnEl.innerHTML;
+          btnEl.classList.add(`is-copied`);
+          btnEl.textContent = `コピー完了`;
+          setTimeout(() => {
+            btnEl.classList.remove(`is-copied`);
+            btnEl.innerHTML = originalHtml;
+            renderIcons();
+          }, 1500);
+        }
+      });
+    }
+
+    function getFilteredResources() {
+      const q = STATE.searchQuery.trim().toLowerCase();
+      return RESOURCES.filter((item) => {
+        if (STATE.schoolTab !== `all` && !item.levels.includes(STATE.schoolTab)) return false;
+        if (STATE.category !== `all` && item.category !== STATE.category) return false;
+        if (STATE.format !== `all` && item.format !== STATE.format) return false;
+        if (STATE.clipsOnly && !STATE.clips[item.id]) return false;
+        if (q) {
+          const haystack = [
+            item.title,
+            item.provider,
+            item.desc,
+            item.focus,
+            item.url,
+            item.categoryLabel,
+            item.formatLabel,
+            item.levelLabels.join(` `)
+          ].join(` `).toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function copyVisibleUrls(btnEl) {
+      const items = getFilteredResources();
+      if (items.length === 0) {
+        showToast(`コピー対象の教材がありません。条件を調整してください。`);
+        return;
+      }
+      const lines = items.map((item) => `${item.title}（${item.provider}）\n${item.url}`);
+      copyTextToClipboard(lines.join(`\n\n`), () => {
+        showToast(`表示中の ${items.length}件のURLをまとめてコピーしました`);
+        if (btnEl) {
+          const prev = btnEl.innerHTML;
+          btnEl.textContent = `${items.length}件をコピー済み`;
+          setTimeout(() => {
+            btnEl.innerHTML = prev;
+            renderIcons();
+          }, 1600);
+        }
+      });
+    }
+
+    function copyClipList(btnEl) {
+      const clippedIds = Object.keys(STATE.clips);
+      if (clippedIds.length === 0) {
+        showToast(`クリップされた教材がありません。教材カードの「クリップ保存」を押してください。`);
+        return;
+      }
+      const lines = clippedIds.map((id) => {
+        const item = RESOURCES.find((r) => r.id === id);
+        if (!item) return null;
+        const memo = STATE.clips[id].memo ? `\nメモ: ${STATE.clips[id].memo}` : ``;
+        return `■ ${item.title}（${item.provider}）\nURL: ${item.url}${memo}`;
+      }).filter(Boolean);
+      copyTextToClipboard(lines.join(`\n\n`), () => {
+        showToast(`授業クリップ ${lines.length}件をコピーしました`);
+        if (btnEl) {
+          const prev = btnEl.innerHTML;
+          btnEl.textContent = `一覧をコピー済み`;
+          setTimeout(() => {
+            btnEl.innerHTML = prev;
+            renderIcons();
+          }, 1600);
+        }
+      });
+    }
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState({ clips: STATE.clips });
+        } catch (e) {
+          // Non-fatal in preview
+        }
+      }
+    }
+
+    function toggleClip(resourceId) {
+      if (STATE.clips[resourceId]) {
+        delete STATE.clips[resourceId];
+        showToast(`クリップから外しました`);
+      } else {
+        STATE.clips[resourceId] = { memo: ``, savedAt: Date.now() };
+        const item = RESOURCES.find((r) => r.id === resourceId);
+        showToast(item ? `クリップに保存：${item.title}` : `クリップに保存しました`);
+      }
+      persistState();
+      renderAll();
+    }
+
+    function updateClipMemo(resourceId, memoVal) {
+      if (!STATE.clips[resourceId]) return;
+      STATE.clips[resourceId].memo = memoVal;
+      persistState();
+    }
+
+    function handleClearAllClips(btnEl) {
+      const count = Object.keys(STATE.clips).length;
+      if (count === 0) {
+        showToast(`解除するクリップがありません。`);
+        return;
+      }
+      if (!STATE.clearArmed) {
+        STATE.clearArmed = true;
+        if (btnEl) btnEl.textContent = `もう一度押して全解除`;
+        setTimeout(() => {
+          if (STATE.clearArmed) {
+            STATE.clearArmed = false;
+            if (btnEl) {
+              btnEl.innerHTML = `<i data-lucide="trash-2" aria-hidden="true"></i> すべて解除`;
+              renderIcons();
+            }
+          }
+        }, 3500);
+        return;
+      }
+      STATE.clearArmed = false;
+      STATE.clips = {};
+      if (btnEl) {
+        btnEl.innerHTML = `<i data-lucide="trash-2" aria-hidden="true"></i> すべて解除`;
+      }
+      persistState();
+      showToast(`すべての授業クリップを解除しました`);
+      renderAll();
+    }
+
+    function onSearchInput(val) {
+      STATE.searchQuery = val;
+      const clearBtn = document.getElementById(`clear-search-btn`);
+      if (clearBtn) clearBtn.hidden = !val;
+      renderResults();
+    }
+
+    function clearSearchInput() {
+      STATE.searchQuery = ``;
+      const input = document.getElementById(`search-input`);
+      if (input) input.value = ``;
+      const clearBtn = document.getElementById(`clear-search-btn`);
+      if (clearBtn) clearBtn.hidden = true;
+      renderResults();
+    }
+
+    function setSchoolTab(tabId) {
+      STATE.schoolTab = tabId;
+      renderSchoolTabs();
+      renderResults();
+    }
+
+    function setCategory(catId) {
+      STATE.category = catId;
+      renderCategoryChips();
+      renderResults();
+    }
+
+    function setFormatFilter(fmt) {
+      STATE.format = fmt;
+      renderResults();
+    }
+
+    function toggleClipsOnly() {
+      STATE.clipsOnly = !STATE.clipsOnly;
+      const btn = document.getElementById(`clips-only-btn`);
+      if (btn) btn.classList.toggle(`is-active`, STATE.clipsOnly);
+      renderResults();
+    }
+
+    function setViewMode(mode) {
+      STATE.viewMode = mode;
+      const cardBtn = document.getElementById(`view-card-btn`);
+      const tableBtn = document.getElementById(`view-table-btn`);
+      if (cardBtn) cardBtn.classList.toggle(`is-active`, mode === `card`);
+      if (tableBtn) tableBtn.classList.toggle(`is-active`, mode === `table`);
+      renderResults();
+    }
+
+    function resetAllFilters() {
+      STATE.searchQuery = ``;
+      STATE.schoolTab = `all`;
+      STATE.category = `all`;
+      STATE.format = `all`;
+      STATE.clipsOnly = false;
+      const input = document.getElementById(`search-input`);
+      if (input) input.value = ``;
+      const clearBtn = document.getElementById(`clear-search-btn`);
+      if (clearBtn) clearBtn.hidden = true;
+      const fmtSel = document.getElementById(`format-filter`);
+      if (fmtSel) fmtSel.value = `all`;
+      const clipsBtn = document.getElementById(`clips-only-btn`);
+      if (clipsBtn) clipsBtn.classList.remove(`is-active`);
+      renderSchoolTabs();
+      renderCategoryChips();
+      renderResults();
+    }
+
+    function scrollToSection(sectionId) {
+      const target = document.getElementById(sectionId);
+      if (target) target.scrollIntoView({ behavior: `smooth`, block: `start` });
+    }
+
+    function applyCopyrightFilterAndScroll() {
+      STATE.schoolTab = `all`;
+      STATE.category = `copyright`;
+      STATE.format = `all`;
+      STATE.clipsOnly = false;
+      const fmtSel = document.getElementById(`format-filter`);
+      if (fmtSel) fmtSel.value = `all`;
+      const clipsBtn = document.getElementById(`clips-only-btn`);
+      if (clipsBtn) clipsBtn.classList.remove(`is-active`);
+      renderSchoolTabs();
+      renderCategoryChips();
+      renderResults();
+      scrollToSection(`search-hub`);
+    }
+
+    function getCategoryTagClass(cat) {
+      if (cat === `copyright`) return `tag-cat-copyright`;
+      if (cat === `sns`) return `tag-cat-sns`;
+      if (cat === `security`) return `tag-cat-security`;
+      if (cat === `literacy`) return `tag-cat-literacy`;
+      if (cat === `curriculum`) return `tag-cat-curriculum`;
+      return `tag-cat-portal`;
+    }
+
+    function renderKpis() {
+      const totalEl = document.getElementById(`kpi-total`);
+      const copyEl = document.getElementById(`kpi-copyright`);
+      const urlEl = document.getElementById(`kpi-urls`);
+      const clipEl = document.getElementById(`kpi-clips`);
+      const navClipEl = document.getElementById(`nav-clip-count`);
+      const filterClipEl = document.getElementById(`filter-clip-count`);
+      const wsClipEl = document.getElementById(`workspace-clip-count`);
+
+      const clipCount = Object.keys(STATE.clips).length;
+      const copyrightCount = RESOURCES.filter((r) => r.category === `copyright`).length;
+      const directUrlCount = RESOURCES.filter((r) => !r.isKeywordCopy).length;
+
+      if (totalEl) totalEl.textContent = String(RESOURCES.length);
+      if (copyEl) copyEl.textContent = String(copyrightCount);
+      if (urlEl) urlEl.textContent = String(directUrlCount);
+      if (clipEl) clipEl.textContent = String(clipCount);
+      if (navClipEl) navClipEl.textContent = String(clipCount);
+      if (filterClipEl) filterClipEl.textContent = String(clipCount);
+      if (wsClipEl) wsClipEl.textContent = String(clipCount);
+    }
+
+    function renderSchoolTabs() {
+      const container = document.getElementById(`school-tabs`);
+      if (!container) return;
+      container.innerHTML = SCHOOL_TABS.map((tab) => {
+        const count = tab.id === `all`
+          ? RESOURCES.length
+          : RESOURCES.filter((r) => r.levels.includes(tab.id)).length;
+        const active = STATE.schoolTab === tab.id ? `is-active` : ``;
+        return `<button type="button" role="tab" aria-selected="${STATE.schoolTab === tab.id}" class="school-tab ${active}" onclick="setSchoolTab('${tab.id}')">
+          <span>${escapeHtml(tab.label)}</span>
+          <span class="tab-count">${count}</span>
+        </button>`;
+      }).join(``);
+    }
+
+    function renderCategoryChips() {
+      const container = document.getElementById(`category-chips`);
+      if (!container) return;
+      container.innerHTML = CATEGORIES.map((cat) => {
+        const count = cat.id === `all`
+          ? RESOURCES.length
+          : RESOURCES.filter((r) => r.category === cat.id).length;
+        const active = STATE.category === cat.id ? `is-active` : ``;
+        return `<button type="button" aria-pressed="${STATE.category === cat.id}" class="cat-chip ${active}" onclick="setCategory('${cat.id}')">
+          <span>${escapeHtml(cat.label)}</span>
+          <span class="index-num">(${count})</span>
+        </button>`;
+      }).join(``);
+    }
+
+    function renderResourceCard(item) {
+      const isClipped = Boolean(STATE.clips[item.id]);
+      const catClass = getCategoryTagClass(item.category);
+      const copyBtnLabel = item.isKeywordCopy ? `案内・窓口名をコピー` : `URLをコピー`;
+      const levelsHtml = item.levelLabels.map((l) => `<span class="level-chip">${escapeHtml(l)}</span>`).join(``);
+      const spotClass = item.featuredCopyright ? `is-copyright-spot` : ``;
+      const isRealUrl = item.url.startsWith(`http`);
+
+      return `<div class="resource-card-wrap">
+        <article class="resource-card ${spotClass}">
+          <div style="display: grid; gap: var(--space-sm);">
+            <div class="card-top-meta">
+              <div class="badge-group">
+                <span class="index-num">#${escapeHtml(item.num)}</span>
+                <span class="tag ${catClass}">${escapeHtml(item.categoryLabel)}</span>
+              </div>
+              <span class="tag-format">${escapeHtml(item.formatLabel)}</span>
+            </div>
+            <div>
+              <h3 class="card-title">${isRealUrl ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${escapeHtml(item.title)}</a>` : escapeHtml(item.title)}</h3>
+              <div class="card-provider">${escapeHtml(item.provider)}</div>
+            </div>
+            <p class="card-desc">${escapeHtml(item.desc)}</p>
+            <div class="card-levels">${levelsHtml}</div>
+          </div>
+          <div class="card-footer">
+            <div class="url-box" title="${escapeHtml(item.url)}">${escapeHtml(item.url)}</div>
+            ${isRealUrl ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-compact" style="display:inline-flex;align-items:center;gap:var(--space-xs);text-decoration:none;margin-bottom:var(--space-xs);"><i data-lucide="external-link" aria-hidden="true"></i> サイトを開く</a>` : ``}
+            <div class="card-actions">
+              <button type="button" class="btn btn-copy btn-compact" onclick="copyResourceUrl('${item.id}', this)">
+                <i data-lucide="copy" aria-hidden="true"></i> ${copyBtnLabel}
+              </button>
+              <button type="button" class="btn btn-secondary btn-compact ${isClipped ? `is-active` : ``}" aria-pressed="${isClipped}" onclick="toggleClip('${item.id}')">
+                <i data-lucide="bookmark" aria-hidden="true"></i> ${isClipped ? `保存済み` : `クリップ`}
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>`;
+    }
+
+    function renderResults() {
+      const container = document.getElementById(`results-container`);
+      const countEl = document.getElementById(`results-count-text`);
+      const descEl = document.getElementById(`active-filter-desc`);
+      if (!container) return;
+
+      const items = getFilteredResources();
+      if (countEl) countEl.textContent = `${items.length}件を表示中（全${RESOURCES.length}件）`;
+
+      if (descEl) {
+        const activeParts = [];
+        if (STATE.schoolTab !== `all`) {
+          const t = SCHOOL_TABS.find((x) => x.id === STATE.schoolTab);
+          if (t) activeParts.push(`校種: ${t.label}`);
+        }
+        if (STATE.category !== `all`) {
+          const c = CATEGORIES.find((x) => x.id === STATE.category);
+          if (c) activeParts.push(`分野: ${c.label}`);
+        }
+        if (STATE.format !== `all`) activeParts.push(`形式指定あり`);
+        if (STATE.clipsOnly) activeParts.push(`クリップのみ`);
+        if (STATE.searchQuery.trim()) activeParts.push(`検索語: "${STATE.searchQuery.trim()}"`);
+        descEl.textContent = activeParts.length ? activeParts.join(` / `) : `すべての校種・カテゴリを表示`;
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = `<div class="empty-state">
+          <p style="margin: 0; font-weight: 700;">条件に一致する教材が見つかりませんでした。</p>
+          <p style="margin: 0; font-size: 0.875rem; color: var(--on-surface-variant);">検索語を短くするか、校種・カテゴリの絞り込みを解除してお試しください。</p>
+          <button type="button" class="btn btn-primary" onclick="resetAllFilters()">すべての条件をリセット</button>
+        </div>`;
+        renderIcons();
+        return;
+      }
+
+      if (STATE.viewMode === `table`) {
+        const rowsHtml = items.map((item) => {
+          const isClipped = Boolean(STATE.clips[item.id]);
+          return `<tr>
+            <td><span class="index-num">#${escapeHtml(item.num)}</span></td>
+            <td>
+              <div style="font-weight: 700;">${escapeHtml(item.title)}</div>
+              <div style="font-size: 0.75rem; color: var(--on-surface-variant); margin-top: 2px;">${escapeHtml(item.focus)}</div>
+            </td>
+            <td style="white-space: nowrap; color: var(--secondary); font-weight: 600;">${escapeHtml(item.provider)}</td>
+            <td>${escapeHtml(item.levelLabels.join(`・`))}</td>
+            <td><span class="tag ${getCategoryTagClass(item.category)}">${escapeHtml(item.categoryLabel)}</span></td>
+            <td><span class="tag-format">${escapeHtml(item.formatLabel)}</span></td>
+            <td style="min-width: 220px;">
+              <div class="url-box">${escapeHtml(item.url)}</div>
+            </td>
+            <td>
+              <div style="display: flex; gap: var(--space-xs); flex-wrap: nowrap;">
+                ${item.url.startsWith(`http`) ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-compact" style="text-decoration:none;">開く</a>` : ``}
+                <button type="button" class="btn btn-copy btn-compact" onclick="copyResourceUrl('${item.id}', this)">コピー</button>
+                <button type="button" class="btn btn-secondary btn-compact ${isClipped ? `is-active` : ``}" onclick="toggleClip('${item.id}')">${isClipped ? `済` : `保存`}</button>
+              </div>
+            </td>
+          </tr>`;
+        }).join(``);
+
+        container.innerHTML = `<div class="table-wrap">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>教材名・学べる内容</th>
+                <th>提供元</th>
+                <th>対象</th>
+                <th>分野</th>
+                <th>形式</th>
+                <th>公式URL / 案内</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+        </div>`;
+      } else {
+        container.innerHTML = `<div class="card-grid">${items.map(renderResourceCard).join(``)}</div>`;
+      }
+
+      renderIcons();
+    }
+
+    function renderCopyrightSpotlight() {
+      const container = document.getElementById(`copyright-spotlight-grid`);
+      if (!container) return;
+      const items = RESOURCES.filter((r) => r.category === `copyright`);
+      container.innerHTML = items.map(renderResourceCard).join(``);
+      renderIcons();
+    }
+
+    function renderWorkspaceClips() {
+      const container = document.getElementById(`clips-container`);
+      if (!container) return;
+      const clippedIds = Object.keys(STATE.clips);
+
+      if (clippedIds.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding: var(--space-lg);">
+          <p style="margin: 0; font-weight: 600;">授業クリップはまだ空です</p>
+          <p style="margin: 0; font-size: 0.875rem; color: var(--on-surface-variant);">教材カードの「クリップ」ボタンを押すと、ここに単元メモ付きで保存され次回も引き継がれます。</p>
+        </div>`;
+        return;
+      }
+
+      container.innerHTML = clippedIds.map((id) => {
+        const item = RESOURCES.find((r) => r.id === id);
+        if (!item) return ``;
+        const memo = STATE.clips[id].memo || ``;
+        const memoInputId = `memo-${id}`;
+        return `<div class="clip-item">
+          <div class="clip-item-top">
+            <div>
+              <div class="badge-group" style="margin-bottom: var(--space-xs);">
+                <span class="index-num">#${escapeHtml(item.num)}</span>
+                <span class="tag ${getCategoryTagClass(item.category)}">${escapeHtml(item.categoryLabel)}</span>
+                <span style="font-size: 0.75rem; color: var(--secondary); font-weight: 600;">${escapeHtml(item.provider)}</span>
+              </div>
+              <div style="font-weight: 700;">${escapeHtml(item.title)}</div>
+            </div>
+            <div style="display: flex; gap: var(--space-xs);">
+              <button type="button" class="btn btn-copy btn-compact" onclick="copyResourceUrl('${item.id}', this)">URLコピー</button>
+              <button type="button" class="btn btn-secondary btn-compact" onclick="toggleClip('${item.id}')">外す</button>
+            </div>
+          </div>
+          <div class="url-box">${escapeHtml(item.url)}</div>
+          <div class="field-group">
+            <label for="${memoInputId}" class="field-label">授業活用メモ（学年・単元・実施時期）</label>
+            <input id="${memoInputId}" type="text" class="text-input" style="min-height: 44px; padding-right: var(--space-md);" value="${escapeHtml(memo)}" placeholder="例：中2 道徳「SNS拡散編」の導入5分で視聴" oninput="updateClipMemo('${item.id}', this.value)">
+          </div>
+        </div>`;
+      }).join(``);
+    }
+
+    function switchChartMode(mode) {
+      STATE.chartMode = mode;
+      const catBtn = document.getElementById(`chart-tab-catalog`);
+      const surBtn = document.getElementById(`chart-tab-survey`);
+      if (catBtn) catBtn.classList.toggle(`is-active`, mode === `catalog`);
+      if (surBtn) surBtn.classList.toggle(`is-active`, mode === `survey`);
+      renderChart();
+    }
+
+    function renderChart() {
+      const canvas = document.getElementById(`portal-chart`);
+      const titleEl = document.getElementById(`chart-title`);
+      const subEl = document.getElementById(`chart-subtitle`);
+      const footEl = document.getElementById(`chart-footnote`);
+      if (!canvas || typeof Chart === `undefined`) return;
+
+      if (portalChartInstance) {
+        portalChartInstance.destroy();
+        portalChartInstance = null;
+      }
+
+      const data1 = getCssToken(`--data-1`);
+      const data2 = getCssToken(`--data-2`);
+      const data3 = getCssToken(`--data-3`);
+      const data4 = getCssToken(`--data-4`);
+      const dataCtx = getCssToken(`--data-context`);
+      const onSurface = getCssToken(`--on-surface`);
+      const onVariant = getCssToken(`--on-surface-variant`);
+      const gridColor = getCssToken(`--outline-variant`);
+
+      if (STATE.chartMode === `catalog`) {
+        if (titleEl) titleEl.textContent = `収録教材：カテゴリ別・件数内訳`;
+        if (subEl) subEl.textContent = `本ポータル収録34件の領域別バランス`;
+        if (footEl) footEl.textContent = `出典：本ポータル収録の公式・公的機関・企業無料教材データ（2026年検証済み）。`;
+
+        const catItems = CATEGORIES.filter((c) => c.id !== `all`);
+        const labels = catItems.map((c) => c.label.replace(`・`, `\n`));
+        const counts = catItems.map((c) => RESOURCES.filter((r) => r.category === c.id).length);
+
+        portalChartInstance = new Chart(canvas, {
+          type: `bar`,
+          data: {
+            labels: labels,
+            datasets: [{
+              label: `収録教材数（件）`,
+              data: counts,
+              backgroundColor: [data1, data2, data4, data3, data1, dataCtx],
+              borderRadius: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: onSurface, font: { size: 11 } }
+              },
+              y: {
+                beginAtZero: true,
+                ticks: { stepSize: 2, color: onVariant },
+                grid: { color: gridColor }
+              }
+            }
+          }
+        });
+      } else {
+        if (titleEl) titleEl.textContent = `小学校：学校外での情報活用頻度（文科省調査）`;
+        if (subEl) subEl.textContent = `「毎日・ほぼ毎日」と「まったく・ほとんどない」の比較（%）`;
+        if (footEl) footEl.textContent = `出典：文部科学省「情報活用能力調査」図表3-1-6（小学校 n=4,456）問6回答割合より作成。`;
+
+        portalChartInstance = new Chart(canvas, {
+          type: `bar`,
+          data: {
+            labels: [`ネット情報収集`, `連絡閲覧・連絡`, `音声/ビデオ交流`, `デジタルドリル`, `コンピュータ文章作成`, `SNSで情報発信`],
+            datasets: [
+              {
+                label: `毎日＋ほぼ毎日 (%)`,
+                data: [27.6, 13.4, 8.5, 6.4, 6.6, 3.3],
+                backgroundColor: data1,
+                borderRadius: 2
+              },
+              {
+                label: `週1〜2回＋月1〜2回 (%)`,
+                data: [45.6, 22.4, 21.5, 34.5, 31.1, 7.7],
+                backgroundColor: data2,
+                borderRadius: 2
+              },
+              {
+                label: `まったく／ほとんどない (%)`,
+                data: [26.9, 64.1, 70.0, 59.1, 62.3, 88.9],
+                backgroundColor: dataCtx,
+                borderRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: `top`,
+                labels: { color: onSurface, boxWidth: 12, font: { size: 11 } }
+              }
+            },
+            scales: {
+              x: {
+                stacked: true,
+                grid: { display: false },
+                ticks: { color: onSurface, font: { size: 11 } }
+              },
+              y: {
+                stacked: true,
+                max: 100,
+                ticks: { color: onVariant },
+                grid: { color: gridColor }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function renderAll() {
+      renderKpis();
+      renderSchoolTabs();
+      renderCategoryChips();
+      renderResults();
+      renderCopyrightSpotlight();
+      renderWorkspaceClips();
+    }
+
+    async function initApp() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && saved.clips && typeof saved.clips === `object`) {
+            STATE.clips = saved.clips;
+          }
+        } catch (e) {
+          // Proceed with empty clips if unavailable
+        }
+      }
+      renderAll();
+      renderChart();
+      renderIcons();
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
