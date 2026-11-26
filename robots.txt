@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blueskysite0-wq.github.io/myedhp/sitemap.xml
